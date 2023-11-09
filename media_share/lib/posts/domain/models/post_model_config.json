@@ -1,0 +1,14 @@
+{
+  "model_name": "post",
+  "additionals": ["copyWith", "json", "equatable", "initial_constructor"],
+  "style": "basic",
+  "properties": [
+    { "name": "postId", "type": "String" },
+    { "name": "title", "type": "String" },
+    { "name": "body", "type": "String" },
+    { "name": "userId", "type": "String" },
+    { "name": "createdTimestamp", "type": "int" },
+    { "name": "comments", "type": "List<Comment>" },
+    { "name": "likes", "type": "List<String>" }
+  ]
+}

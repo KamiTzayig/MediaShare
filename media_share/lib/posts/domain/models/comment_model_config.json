@@ -1,0 +1,12 @@
+{
+  "model_name": "comment",
+  "additionals": ["copyWith", "json", "equatable", "initial_constructor"],
+  "style": "basic",
+  "properties": [
+    { "name": "postId", "type": "String" },
+    { "name": "commentId", "type": "String" },
+    { "name": "body", "type": "String" },
+    { "name": "userId", "type": "String" },
+    { "name": "createdTimestamp", "type": "int" }
+  ]
+}
