@@ -4,8 +4,10 @@
   "style": "basic",
   "properties": [
     { "name": "postId", "type": "String" },
-    { "name": "title", "type": "String" },
-    { "name": "body", "type": "String" },
+    { "name": "description", "type": "String" },
+    { "name": "postType", "type": "String" },
+    {"name": "mediaUrl", "type": "String"},
+    {"name": "thumbnailUrl", "type": "String"},
     { "name": "userId", "type": "String" },
     { "name": "createdTimestamp", "type": "int" },
     { "name": "comments", "type": "List<Comment>" },
