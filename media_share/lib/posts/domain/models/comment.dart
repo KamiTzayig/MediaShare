@@ -15,7 +15,7 @@ class Comment extends Equatable {
 
   
         /// initial constructor for Comment
-    Comment.unknown():
+    const Comment.unknown():
         postId = '',
         commentId = '',
         body = '',
