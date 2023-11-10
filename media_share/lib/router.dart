@@ -2,6 +2,7 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:media_share/posts/posts.dart';
 
 final ValueNotifier<RoutingConfig> myRoutingConfig =
     ValueNotifier<RoutingConfig>(loggedOutRoutingConfig);
@@ -14,6 +15,7 @@ final RoutingConfig loggedInRoutingConfig = RoutingConfig(
       builder: (_, __) => Scaffold(
         backgroundColor: Colors.tealAccent,
         body: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
               onPressed: () {
@@ -21,6 +23,8 @@ final RoutingConfig loggedInRoutingConfig = RoutingConfig(
               },
               child: Text('Sign Out'),
             ),
+
+            PostsView()
           ],
         ),
       ),

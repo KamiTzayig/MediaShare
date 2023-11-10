@@ -1,5 +1,11 @@
+import 'dart:io';
+
+import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
-import './widgets/posts_body.dart';
+import 'package:media_share/posts/domain/file_type.dart';
+import '../application/notifiers/posts_notifier.dart';
+import '../domain/models/post.dart';
+import './widgets/posts_grid.dart';
 
 /// {@template posts_page}
 /// A description for PostsPage
@@ -12,13 +18,13 @@ class PostsPage extends StatelessWidget {
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(builder: (_) => const PostsPage());
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: PostsView(),
     );
-  }  
+  }
 }
 
 /// {@template posts_view}
@@ -30,6 +36,22 @@ class PostsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PostsBody();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Consumer(
+          builder: (context, ref, child) => ElevatedButton(
+              onPressed: () {
+                ref.read(postsNotifierProvider.notifier).createPost(
+                      Post.unknown().copyWith(userId: "a",description: "aa",),
+                      File(''),
+                      FileType.image,
+                    );
+              },
+              child: Text("Add Post")),
+        ),
+        PostsGrid(),
+      ],
+    );
   }
 }

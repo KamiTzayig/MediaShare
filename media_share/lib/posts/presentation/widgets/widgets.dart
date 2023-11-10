@@ -1,1 +1,1 @@
-export 'posts_body.dart';
+export 'posts_grid.dart';
