@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import 'comment.dart';
@@ -7,7 +8,7 @@ import 'comment.dart';
 /// {@endtemplate}
 class Post extends Equatable {
   /// {@macro post}
-  const Post({ 
+  const Post({
     required this.postId,
     required this.description,
     required this.postType,
@@ -19,10 +20,9 @@ class Post extends Equatable {
     required this.likes,
   });
 
-  
-        /// initial constructor for Post
-    Post.unknown():
-        postId = '',
+  /// initial constructor for Post
+  Post.unknown()
+      : postId = '',
         description = '',
         postType = '',
         mediaUrl = '',
@@ -31,10 +31,8 @@ class Post extends Equatable {
         createdTimestamp = 0,
         comments = [],
         likes = [];
-    
 
-
-    /// Creates a Post from Json map
+  /// Creates a Post from Json map
   factory Post.fromJson(Map<String, dynamic> json) => Post(
         postId: json['postId'] as String,
         description: json['description'] as String,
@@ -42,9 +40,12 @@ class Post extends Equatable {
         mediaUrl: json['mediaUrl'] as String,
         thumbnailUrl: json['thumbnailUrl'] as String,
         userId: json['userId'] as String,
-        createdTimestamp: json['createdTimestamp'] as int,
-        comments: (json['comments'] as List<dynamic>).map((dynamic e) => Comment.fromJson(e as Map<String, dynamic>)).toList(),
-        likes: json['likes'] as List<String>,
+        createdTimestamp:
+            (json['createdTimestamp'] as Timestamp).millisecondsSinceEpoch,
+        comments: (json['comments'] as List<dynamic>)
+            .map((dynamic e) => Comment.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        likes: (json['likes'] as List<dynamic>).map((e) => e.toString()).toList() ,
       );
 
   /// A description for postId
@@ -74,8 +75,8 @@ class Post extends Equatable {
   /// A description for likes
   final List<String> likes;
 
-    /// Creates a copy of the current Post with property changes
-  Post copyWith({ 
+  /// Creates a copy of the current Post with property changes
+  Post copyWith({
     String? postId,
     String? description,
     String? postType,
@@ -99,8 +100,7 @@ class Post extends Equatable {
     );
   }
 
-
-    @override
+  @override
   List<Object?> get props => [
         postId,
         description,
@@ -113,8 +113,8 @@ class Post extends Equatable {
         likes,
       ];
 
-    /// Creates a Json map from a Post
-  Map<String, dynamic> toJson() => <String, dynamic>{ 
+  /// Creates a Json map from a Post
+  Map<String, dynamic> toJson() => <String, dynamic>{
         'postId': postId,
         'description': description,
         'postType': postType,
