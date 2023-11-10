@@ -20,13 +20,11 @@ class PostsRepositoryFirebase implements PostsRepository {
 
   @override
   Future<void> createPost(Post post) async {
-    await _firestore.collection('posts').add({
-      'mediaUrl': post.mediaUrl,
-      'description': post.description,
-      'postType': post.postType,
-      'userId': post.userId,
-      'createdAt': FieldValue.serverTimestamp(),
-    });
+    Map<String, dynamic> json = post.toJson();
+    json['createdTimestamp'] = FieldValue.serverTimestamp();
+
+
+    await _firestore.collection('posts').add(json);
   }
 
   @override
@@ -42,9 +40,11 @@ class PostsRepositoryFirebase implements PostsRepository {
   @override
   Stream<List<Post>> get postsStream => _firestore
       .collection('posts')
-      .orderBy('createdAt', descending: true)
+      .orderBy('createdTimestamp', descending: true)
       .snapshots()
-      .map((snapshot) => snapshot.docs.map((doc) {
+      .map((snapshot) => snapshot.docs .where(
+        (doc) => !doc.metadata.hasPendingWrites,
+  ). map((doc) {
             Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
             return Post.fromJson(json);
           }).toList());
