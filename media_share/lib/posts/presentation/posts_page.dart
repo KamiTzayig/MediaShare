@@ -1,10 +1,6 @@
-import 'dart:io';
 
-import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
-import 'package:media_share/posts/domain/file_type.dart';
-import '../application/notifiers/posts_notifier.dart';
-import '../domain/models/post.dart';
+import 'package:media_share/posts/presentation/widgets/create_post_button.dart';
 import './widgets/posts_grid.dart';
 
 /// {@template posts_page}
@@ -39,18 +35,10 @@ class PostsView extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Consumer(
-          builder: (context, ref, child) => ElevatedButton(
-              onPressed: () {
-                ref.read(postsNotifierProvider.notifier).createPost(
-                      Post.unknown().copyWith(userId: "a",description: "aa",),
-                      File(''),
-                      FileType.image,
-                    );
-              },
-              child: Text("Add Post")),
+        CreatePostButton(),
+        Expanded(
+          child: PostsGrid(),
         ),
-        PostsGrid(),
       ],
     );
   }

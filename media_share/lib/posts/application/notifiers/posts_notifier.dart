@@ -19,11 +19,10 @@ class PostsNotifier extends _$PostsNotifier {
 
   set isLoading(bool value) => state = value;
   //create new post
-  Future<void> createPost(Post post, File file, FileType fileType ) async {
+  Future<void> createPost({required Post post, required File file, required FileType fileType} ) async {
     isLoading = true;
     try {
-    post = post.copyWith(mediaUrl:"https://images3.alphacoders.com/165/thumb-1920-165265.jpg");
-      await _repository.createPost(post);
+      await _repository.createPost(post: post, file: file, fileType: fileType);
     } catch (e) {
       print(e);
     } finally {

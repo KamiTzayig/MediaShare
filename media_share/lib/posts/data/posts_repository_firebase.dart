@@ -1,12 +1,19 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:media_share/posts/domain/file_type.dart';
 import 'package:media_share/posts/domain/models/comment.dart';
 
 import 'package:media_share/posts/domain/models/post.dart';
+import 'package:uuid/uuid.dart';
 
 import '../domain/posts_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class PostsRepositoryFirebase implements PostsRepository {
   final _firestore = FirebaseFirestore.instance;
+  final _storage = FirebaseStorage.instance;
 
   @override
   Future<void> createComment(Comment comment) async {
@@ -19,12 +26,24 @@ class PostsRepositoryFirebase implements PostsRepository {
   }
 
   @override
-  Future<void> createPost(Post post) async {
-    Map<String, dynamic> json = post.toJson();
-    json['createdTimestamp'] = FieldValue.serverTimestamp();
+  Future<void> createPost({required Post post,required File file,required FileType fileType}) async{
 
+    final fileId = const Uuid().v4();
+    final ref = _storage.ref().child(post.userId).child(fileType.pathName).child(fileId);
+    final uploadTask = ref.putFile(file);
 
-    await _firestore.collection('posts').add(json);
+    try {
+      TaskSnapshot taskSnapshot = await uploadTask;
+
+      final url = await ref.getDownloadURL();
+      post = post.copyWith(mediaUrl: url, postType: fileType.pathName);
+      Map<String, dynamic> json = post.toJson();
+      json['createdTimestamp'] = FieldValue.serverTimestamp();
+
+      await _firestore.collection('posts').add(json);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -48,4 +67,6 @@ class PostsRepositoryFirebase implements PostsRepository {
             Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
             return Post.fromJson(json);
           }).toList());
+
+
 }
