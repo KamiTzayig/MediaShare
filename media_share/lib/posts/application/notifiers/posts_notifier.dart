@@ -1,7 +1,6 @@
-import 'dart:io';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:media_share/posts/domain/file_type.dart';
+import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/posts_repository_firebase.dart';
 import '../../domain/models/comment.dart';
@@ -19,10 +18,10 @@ class PostsNotifier extends _$PostsNotifier {
 
   set isLoading(bool value) => state = value;
   //create new post
-  Future<void> createPost({required Post post, required File file, required FileType fileType} ) async {
+  Future<void> createPost({required Post post, required FileAndType fileAndType} ) async {
     isLoading = true;
     try {
-      await _repository.createPost(post: post, file: file, fileType: fileType);
+      await _repository.createPost(post: post, file: fileAndType.file, fileType: fileAndType.fileType);
     } catch (e) {
       print(e);
     } finally {

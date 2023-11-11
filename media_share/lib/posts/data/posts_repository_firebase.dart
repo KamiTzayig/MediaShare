@@ -43,6 +43,7 @@ class PostsRepositoryFirebase implements PostsRepository {
       await _firestore.collection('posts').add(json);
     } catch (e) {
       print(e);
+      throw e;
     }
   }
 
