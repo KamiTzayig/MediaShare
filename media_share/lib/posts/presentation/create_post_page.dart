@@ -38,29 +38,23 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
           Expanded(
             child: fileAndType != null
                 ? FileDisplayWidget(fileAndType: fileAndType)
-                : Row(children: [
+                :
                     IconButton.outlined(
                         onPressed: () {
-                          ref.read(pickFileNotifierProvider.notifier).pickFile(
-                              fileType: FileType.image,
-                              imageSource: ImageSource.gallery);
+                          ref
+                              .read(pickFileNotifierProvider.notifier)
+                              .pickFile();
                         },
-                        icon: Icon(Icons.image)),
-                    IconButton.outlined(
-                        onPressed: () {
-                          ref.read(pickFileNotifierProvider.notifier).pickFile(
-                              fileType: FileType.video,
-                              imageSource: ImageSource.gallery);
-                        },
-                        icon: Icon(Icons.video_collection))
-                  ]),
+                        icon: Icon(Icons.add)),
+
+
           ),
           isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
                   onPressed: fileAndType == null
                       ? () {}
-                      : () async{
+                      : () async {
                           await ref
                               .read(postsNotifierProvider.notifier)
                               .createPost(fileAndType: fileAndType, post: post);
