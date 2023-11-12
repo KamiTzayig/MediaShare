@@ -26,7 +26,7 @@ final RoutingConfig loggedInRoutingConfig = RoutingConfig(
               child: Text('Sign Out'),
             ),
             
-            Expanded(child: PostsView())
+            Expanded(child: PostsView()),
           ],
         ),
       ),
