@@ -11,7 +11,7 @@ class PostData extends _$PostData {
   Post build(String postId) {
     AsyncValue<List<Post>> postsAsync = ref.watch(postsStreamProvider);
     Post p = postsAsync.when(data: (posts) {
-      return posts.firstWhere((Post post) => post.postId == postId);
+      return posts.firstWhere((Post post) => post.postId == postId,orElse: () => Post.unknown());
     }, loading: () {
       return Post.unknown();
     }, error: (error, stackTrace) {

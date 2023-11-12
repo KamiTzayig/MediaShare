@@ -61,13 +61,20 @@ class PostsRepositoryFirebase implements PostsRepository {
   Stream<List<Post>> get postsStream => _firestore
       .collection('posts')
       .orderBy('createdTimestamp', descending: true)
-      .snapshots()
-      .map((snapshot) => snapshot.docs .where(
+      .snapshots(includeMetadataChanges: true)
+      .map((snapshot) => snapshot.docs.where(
         (doc) => !doc.metadata.hasPendingWrites,
   ). map((doc) {
+
             Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
             return Post.fromJson(json);
-          }).toList());
+          }) .toList());
+
+  @override
+  Future<void> editPostDescription({required String postId,required String description}) async {
+
+    await _firestore.collection('posts').doc(postId).update({'description': description});
+  }
 
 
 }

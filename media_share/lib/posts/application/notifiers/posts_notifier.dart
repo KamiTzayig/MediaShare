@@ -29,6 +29,17 @@ class PostsNotifier extends _$PostsNotifier {
     }
   }
 
+  Future<void> editPostDescription({required String postId, required String description}) async {
+    isLoading = true;
+    try {
+      await _repository.editPostDescription(postId: postId, description: description);
+    } catch (e) {
+      print(e);
+    } finally {
+      isLoading = false;
+    }
+  }
+
   Future<void> deletePost(String postId) async {
     isLoading = true;
     try {

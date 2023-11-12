@@ -1,6 +1,7 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:media_share/posts/presentation/widgets/file_display_widget.dart';
@@ -59,10 +60,11 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
               : ElevatedButton(
                   onPressed: fileAndType == null
                       ? () {}
-                      : () {
-                          ref
+                      : () async{
+                          await ref
                               .read(postsNotifierProvider.notifier)
                               .createPost(fileAndType: fileAndType, post: post);
+                          context.pop();
                         },
                   child: Text("Create Post"),
                 ),
