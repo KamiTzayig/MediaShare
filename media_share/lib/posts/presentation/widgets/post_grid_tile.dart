@@ -27,7 +27,7 @@ class PostGirdTile extends StatelessWidget {
             bottom: 6,
             right: 6,
             child: Icon(
-              Icons.play_circle_fill,
+              Icons.play_arrow_rounded,
               color: Colors.white,
               size: 50,
             ),

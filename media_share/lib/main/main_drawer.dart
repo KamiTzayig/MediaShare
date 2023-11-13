@@ -1,5 +1,7 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
+import 'package:media_share/main/theme_list_tile.dart';
+
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({super.key});
@@ -12,12 +14,7 @@ class MainDrawer extends StatelessWidget {
           DrawerHeader(
             child: Text('Media Share'),
           ),
-          ListTile(
-            title: Text('Profile'),
-            onTap: () {
-              Navigator.of(context).pushNamed('/profile');
-            },
-          ),
+        ThemeListTile(),
           ListTile(
             title: Text('Sign Out'),
             leading: Icon(Icons.logout),

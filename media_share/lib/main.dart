@@ -3,6 +3,7 @@ import 'package:firebase_auth_feature_repository/firebase_auth_feature_repositor
 import 'package:flutter/material.dart';
 import 'package:media_share/router.dart';
 
+import 'core/notifiers/theme_notifier.dart';
 import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
@@ -28,14 +29,16 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     AuthFeature.instance.repository.authUserStream.listen((AuthUser user) {
       if(user.userId != ''){
           myRoutingConfig.value = loggedInRoutingConfig;
       }else{
           myRoutingConfig.value = loggedOutRoutingConfig;
       }
-
     });
+
+    ThemeMode themeMode = ref.watch(themeNotifierProvider);
 
     return MaterialApp.router(
       title: 'Media Share',
@@ -43,6 +46,12 @@ class MyApp extends ConsumerWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple,brightness: Brightness.dark),
+        brightness: Brightness.dark,
+        useMaterial3: true,
+      ),
+      themeMode: themeMode,
       routerConfig: router,
     );
   }
