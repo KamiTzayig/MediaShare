@@ -9,11 +9,6 @@ class PostsPage extends StatelessWidget {
   /// {@macro posts_page}
   const PostsPage({super.key});
 
-  /// The static route for PostsPage
-  static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const PostsPage());
-  }
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

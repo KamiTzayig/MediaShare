@@ -7,4 +7,7 @@ class FileAndType {
   final FileType fileType;
 
   FileAndType({required this.file, required this.fileType});
+
+
+
 }

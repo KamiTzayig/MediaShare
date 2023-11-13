@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
-import 'package:media_share/posts/presentation/widgets/file_display_widget.dart';
+import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import '../application/notifiers/pick_file_notifier.dart';
 import '../application/state.dart';
 import '../domain/models/post.dart';
@@ -32,7 +32,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
       body: Column(
         children: [
           fileAndType != null
-              ? FileDisplayWidget(fileAndType: fileAndType)
+              ? MediaDisplayWidget(fileType: fileAndType.fileType, file: fileAndType.file,)
               :
           IconButton.outlined(
               onPressed: () {

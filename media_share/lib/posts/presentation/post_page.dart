@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:media_share/posts/application/providers/post_data_provider.dart';
+import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
 
 import '../application/state.dart';
+import '../domain/file_type.dart';
 import '../domain/models/post.dart';
 
 class PostPage extends ConsumerWidget {
@@ -24,6 +26,12 @@ class PostPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
+          MediaDisplayWidget(
+            fileType: post.postType == "images"
+                ? FileType.image
+                : FileType.video,
+            url: post.mediaUrl,
+          ),
          PostDescription(post: post),
 
           isUserPost
