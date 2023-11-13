@@ -22,26 +22,34 @@ class PostPage extends ConsumerWidget {
     bool isUserPost =
         post.userId == AuthFeature.instance.repository.authUser.userId;
     return MainLayout(
-     child: Column(
-        children: [
-          MediaDisplayWidget(
-            fileType: post.postType == "images"
-                ? MediaType.image
-                : MediaType.video,
-            url: post.mediaUrl,
-          ),
-         PostDescription(post: post),
+     child: SingleChildScrollView(
+       child: Column(
+          children: [
+            MediaDisplayWidget(
+              fileType: post.postType == "videos"
+                  ? MediaType.video
+                  : MediaType.image,
+              url: post.mediaUrl,
+            ),
+           PostDescription(post: post, onEdit: (String postId, String description) async {
+             await ref
+                 .read(postsNotifierProvider.notifier)
+                 .editPostDescription( postId: postId,description:  description);
+           }),
 
-          isUserPost
-              ? ElevatedButton(onPressed: () async{
-               await ref.read(postsNotifierProvider.notifier).deletePost(postId);
-               context.pop();
+            isUserPost
+                ? ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red[100]),
+                onPressed: () async{
+                 await ref.read(postsNotifierProvider.notifier).deletePost(postId);
+                 context.pop();
 
 
-          }, child: Text('delete post'))
-              : const SizedBox(),
-        ],
-      ),
+            }, child: Text('delete post',style: TextStyle(color: Colors.red),),)
+                : const SizedBox(),
+          ],
+        ),
+     ),
     );
   }
 }

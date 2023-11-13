@@ -7,7 +7,7 @@ part of 'filtered_posts_stream.dart';
 // **************************************************************************
 
 String _$filteredPostsStreamHash() =>
-    r'80e06c26bb333b734661e768057dbc8cc4ee8c01';
+    r'2ca89bada0e45fecbad3bef46c4ee1fd4c3a6f74';
 
 /// See also [FilteredPostsStream].
 @ProviderFor(FilteredPostsStream)

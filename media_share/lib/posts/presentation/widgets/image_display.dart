@@ -17,25 +17,36 @@ class ImageDisplay extends StatelessWidget {
             imageFile!,
             frameBuilder: (BuildContext context, Widget child, int? frame,
                 bool wasSynchronouslyLoaded) {
-              return frame == null? Container(
-                height: size.height * 0.6,
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
-              ):child;
+              return frame == null
+                  ? Container(
+                      height: size.height * 0.6,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : child;
             },
           )
-        : Image.network(
-            imageUrl!,
-            frameBuilder: (BuildContext context, Widget child, int? frame,
-                bool wasSynchronouslyLoaded) {
-              return  frame == null?Container(
+        : imageUrl != ''
+            ? Image.network(
+                imageUrl!,
+                frameBuilder: (BuildContext context, Widget child, int? frame,
+                    bool wasSynchronouslyLoaded) {
+                  return frame == null
+                      ? Container(
+                          height: size.height * 0.6,
+                          child: Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : child;
+                },
+              )
+            : Container(
                 height: size.height * 0.6,
                 child: Center(
                   child: CircularProgressIndicator(),
                 ),
-              ):child;
-            },
-          );
+              );
   }
 }

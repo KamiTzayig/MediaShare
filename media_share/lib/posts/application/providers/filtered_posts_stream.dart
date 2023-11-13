@@ -12,7 +12,6 @@ part 'filtered_posts_stream.g.dart';
 class FilteredPostsStream extends _$FilteredPostsStream {
   final PostsRepository _repository = PostsRepositoryFirebase();
 
-
   @override
   Stream<List<Post>> build() {
     Stream<List<Post>> posts = _repository.postsStream;
@@ -21,8 +20,10 @@ class FilteredPostsStream extends _$FilteredPostsStream {
     if (mediaType == MediaType.unknown) {
       return posts;
     } else {
-      return posts.map((posts) =>
-          posts.where((post) => post.postType == mediaType.pathName).toList());
+      return posts.map((posts) => posts.where((post) {
+
+            return post.postType == mediaType.pathName;
+          }).toList());
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
+import 'package:media_share/posts/presentation/widgets/post_description.dart';
 import '../application/notifiers/pick_file_notifier.dart';
 import '../application/state.dart';
 import '../domain/models/post.dart';
@@ -18,7 +19,7 @@ class CreatePostPage extends ConsumerStatefulWidget {
 }
 
 class _CreatePostPageState extends ConsumerState<CreatePostPage> {
-  final Post post = Post.unknown()
+  Post post = Post.unknown()
       .copyWith(userId: AuthFeature.instance.repository.authUser.userId);
 
 
@@ -26,35 +27,47 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
   Widget build(BuildContext context) {
     bool isLoading = ref.watch(postsNotifierProvider);
     FileAndType? fileAndType = ref.watch(pickFileNotifierProvider);
+    Size size = MediaQuery.of(context).size;
     return MainLayout(
-     child: Column(
-        children: [
-          fileAndType != null
-              ? MediaDisplayWidget(fileType: fileAndType.fileType, file: fileAndType.file,)
-              :
-          IconButton.outlined(
-              onPressed: () {
-                ref
-                    .read(pickFileNotifierProvider.notifier)
-                    .pickFile();
+     child: SingleChildScrollView(
+       child: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            fileAndType != null
+                ? MediaDisplayWidget(fileType: fileAndType.fileType, file: fileAndType.file,)
+                :
+            Container(
+              alignment: Alignment.center,
+              color: Colors.grey[300],
+              height: size.height * 0.6,
+              child: IconButton.filled(
+                color: Colors.white,
+                  onPressed: () {
+                    ref
+                        .read(pickFileNotifierProvider.notifier)
+                        .pickFile();
+                  },
+                  icon: Icon(Icons.add)),
+            ),
+            PostDescription(post: post,onEdit: (String postId, String description) async {
+              post = post.copyWith(description: description);
+            }),
+            isLoading
+                ? CircularProgressIndicator()
+                : ElevatedButton(
+              onPressed: fileAndType == null
+                  ? () {}
+                  : () async {
+                await ref
+                    .read(postsNotifierProvider.notifier)
+                    .createPost(fileAndType: fileAndType, post: post);
+                context.pop();
               },
-              icon: Icon(Icons.add)),
-          Spacer(),
-          isLoading
-              ? CircularProgressIndicator()
-              : ElevatedButton(
-            onPressed: fileAndType == null
-                ? () {}
-                : () async {
-              await ref
-                  .read(postsNotifierProvider.notifier)
-                  .createPost(fileAndType: fileAndType, post: post);
-              context.pop();
-            },
-            child: Text("Create Post"),
-          ),
-        ],
-      ),
+              child: Text("Create Post"),
+            ),
+          ],
+        ),
+     ),
     );
   }
 }

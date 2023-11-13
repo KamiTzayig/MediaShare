@@ -32,8 +32,8 @@ class PostsGrid extends ConsumerWidget {
         error: (_, StackTrace stackTrace) {
           print(_);
           print(stackTrace);
-        return  Center(child: Text("error"));
+        return  Center(child: Text("error"),);
         },
-        loading: () => const CircularProgressIndicator());
+        loading: () => const Center( child: CircularProgressIndicator(),),);
   }
 }

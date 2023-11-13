@@ -7,50 +7,65 @@ import '../../application/state.dart';
 import '../../domain/models/post.dart';
 
 class PostDescription extends HookConsumerWidget {
-  const PostDescription({required this.post, super.key});
+  const PostDescription({required this.post,required this.onEdit, super.key});
+
   final Post post;
+  final Future<void> Function(String postId,String description) onEdit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     bool isUserPost =
         post.userId == AuthFeature.instance.repository.authUser.userId;
-    TextEditingController _descriptionController = useTextEditingController(text: post.description);
+     TextEditingController descriptionController =
+        useTextEditingController(text: post.description);
 
     final inEditMode = useState(false);
 
+    return inEditMode.value
+        ? Card(
+          child: Row(children: [
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.all(8),
+                  child: TextField(
+                    controller: descriptionController,
+                    maxLines: 3,
 
-    return inEditMode.value ? Row(
-     
-      children:[Expanded(
-        child: TextField(
-          controller: _descriptionController,
-        ),
-      ),
-        IconButton(onPressed: () async{
-          await ref.read(postsNotifierProvider.notifier).editPostDescription(postId: post.postId, description: _descriptionController.text);
-          inEditMode.value = false;
-        }, icon: Icon(Icons.save),
-        ),
-        IconButton(onPressed: (){
-          inEditMode.value = false;
-        }, icon: Icon(Icons.cancel),
-        ),
-      ]
-
-
-    ):
-
-      Row(
-      children: [
-        Text(post.description),
-        isUserPost
-            ? IconButton(
-                onPressed: () {
-            inEditMode.value = true;
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  await onEdit(post.postId,descriptionController.text);
+                  inEditMode.value = false;
                 },
-                icon: Icon(Icons.edit))
-            : const SizedBox(),
-      ],
-    );
+                icon: Icon(Icons.save),
+              ),
+              IconButton(
+                onPressed: () {
+                  inEditMode.value = false;
+                },
+                icon: Icon(Icons.cancel),
+              ),
+            ]),
+        )
+        : Card(
+          child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                      padding: const EdgeInsets.all(8),
+                      child: Text('description: ' + post.description,softWrap: true,)),
+                ),
+                isUserPost
+                    ? IconButton(
+                        onPressed: () {
+                          inEditMode.value = true;
+                        },
+                        icon: Icon(Icons.edit))
+                    : const SizedBox(),
+              ],
+            ),
+        );
   }
 }

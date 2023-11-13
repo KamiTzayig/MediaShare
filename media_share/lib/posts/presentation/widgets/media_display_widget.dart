@@ -52,7 +52,9 @@ class _MediaDisplayWidgetState extends State<MediaDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
+
     if (widget.fileType == MediaType.video) {
+
       return VideoDisplay(videoController: _videoController);
     } else if (widget.fileType == MediaType.image) {
       return ImageDisplay(imageFile: widget.file, imageUrl: widget.url);
@@ -62,11 +64,6 @@ class _MediaDisplayWidgetState extends State<MediaDisplayWidget> {
       );
     }
   }
-
-
-
-
-
 
 
 }
