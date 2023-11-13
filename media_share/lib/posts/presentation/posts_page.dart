@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:media_share/posts/presentation/widgets/create_post_button.dart';
 import './widgets/posts_grid.dart';
 
 /// {@template posts_page}
@@ -35,7 +34,6 @@ class PostsView extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        CreatePostButton(),
         Expanded(
           child: PostsGrid(),
         ),
