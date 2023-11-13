@@ -1,8 +1,12 @@
 
+import 'dart:typed_data';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../../data/posts_repository_firebase.dart';
+import '../../domain/file_type.dart';
 import '../../domain/models/comment.dart';
 import '../../domain/models/post.dart';
 import '../../domain/posts_repository.dart';
@@ -21,7 +25,19 @@ class PostsNotifier extends _$PostsNotifier {
   Future<void> createPost({required Post post, required FileAndType fileAndType} ) async {
     isLoading = true;
     try {
-      await _repository.createPost(post: post, file: fileAndType.file, fileType: fileAndType.fileType);
+      final mediaFile = fileAndType.file;
+      final fileType = fileAndType.fileType;
+      Uint8List? thumbnailData;
+      if(fileType == FileType.video) {
+        thumbnailData = await VideoThumbnail.thumbnailData(
+          video: mediaFile.path,
+          imageFormat: ImageFormat.JPEG,
+        );
+      }
+
+
+
+      await _repository.createPost(post: post, fileType: fileType, mediaFile: mediaFile, thumbnailData: thumbnailData);
     } catch (e) {
       print(e);
     } finally {

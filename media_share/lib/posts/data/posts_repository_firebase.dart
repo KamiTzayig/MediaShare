@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:media_share/posts/domain/file_type.dart';
 import 'package:media_share/posts/domain/models/comment.dart';
@@ -26,22 +27,51 @@ class PostsRepositoryFirebase implements PostsRepository {
   }
 
   @override
-  Future<void> createPost({required Post post,required File file,required FileType fileType}) async{
+  Future<void> createPost(
+      {required Post post,
+      required File mediaFile,
+      required FileType fileType, required Uint8List? thumbnailData}) async {
 
     final fileId = const Uuid().v4();
-    final ref = _storage.ref().child(post.userId).child(fileType.pathName).child(fileId);
-    final uploadTask = ref.putFile(file);
+    final mediaRef = _storage
+        .ref()
+        .child(post.userId)
+        .child(fileType.pathName)
+        .child(fileId);
+    final thumbnailRef = _storage
+        .ref()
+        .child(post.userId)
+        .child('thumbnails')
+        .child("thumb-" + fileId);
+
+
+    final mediaUploadTask = await mediaRef.putFile(
+      mediaFile,
+    );
+
+    if(thumbnailData != null){
+      final thumbnailUploadTask = await thumbnailRef.putData(
+        thumbnailData,
+      );
+    }
+    else{
+      final thumbnailUploadTask = await thumbnailRef.putFile(
+        mediaFile,
+      );
+    }
+
 
     try {
-      TaskSnapshot taskSnapshot = await uploadTask;
 
-      final url = await ref.getDownloadURL();
-      post = post.copyWith(mediaUrl: url, postType: fileType.pathName);
+      final mediaUrl = await mediaRef.getDownloadURL();
+      final thumbnailUrl = await thumbnailRef.getDownloadURL();
+      post = post.copyWith(mediaUrl: mediaUrl,thumbnailUrl: thumbnailUrl, postType: fileType.pathName);
       Map<String, dynamic> json = post.toJson();
       json['createdTimestamp'] = FieldValue.serverTimestamp();
 
       await _firestore.collection('posts').add(json);
     } catch (e) {
+
       print(e);
       throw e;
     }
@@ -62,19 +92,21 @@ class PostsRepositoryFirebase implements PostsRepository {
       .collection('posts')
       .orderBy('createdTimestamp', descending: true)
       .snapshots(includeMetadataChanges: true)
-      .map((snapshot) => snapshot.docs.where(
-        (doc) => !doc.metadata.hasPendingWrites,
-  ). map((doc) {
-
+      .map((snapshot) => snapshot.docs
+              .where(
+            (doc) => !doc.metadata.hasPendingWrites,
+          )
+              .map((doc) {
             Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
             return Post.fromJson(json);
-          }) .toList());
+          }).toList());
 
   @override
-  Future<void> editPostDescription({required String postId,required String description}) async {
-
-    await _firestore.collection('posts').doc(postId).update({'description': description});
+  Future<void> editPostDescription(
+      {required String postId, required String description}) async {
+    await _firestore
+        .collection('posts')
+        .doc(postId)
+        .update({'description': description});
   }
-
-
 }

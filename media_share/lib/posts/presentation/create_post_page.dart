@@ -1,14 +1,12 @@
+
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:media_share/posts/presentation/widgets/file_display_widget.dart';
-import 'dart:io';
 import '../application/notifiers/pick_file_notifier.dart';
 import '../application/state.dart';
-import '../domain/file_type.dart';
 import '../domain/models/post.dart';
 
 class CreatePostPage extends ConsumerStatefulWidget {
@@ -22,8 +20,6 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
   final Post post = Post.unknown()
       .copyWith(userId: AuthFeature.instance.repository.authUser.userId);
 
-  FileType? fileType;
-  File? file;
 
   @override
   Widget build(BuildContext context) {
@@ -35,33 +31,30 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: fileAndType != null
-                ? FileDisplayWidget(fileAndType: fileAndType)
-                :
-                    IconButton.outlined(
-                        onPressed: () {
-                          ref
-                              .read(pickFileNotifierProvider.notifier)
-                              .pickFile();
-                        },
-                        icon: Icon(Icons.add)),
-
-
-          ),
+          fileAndType != null
+              ? FileDisplayWidget(fileAndType: fileAndType)
+              :
+          IconButton.outlined(
+              onPressed: () {
+                ref
+                    .read(pickFileNotifierProvider.notifier)
+                    .pickFile();
+              },
+              icon: Icon(Icons.add)),
+          Spacer(),
           isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
-                  onPressed: fileAndType == null
-                      ? () {}
-                      : () async {
-                          await ref
-                              .read(postsNotifierProvider.notifier)
-                              .createPost(fileAndType: fileAndType, post: post);
-                          context.pop();
-                        },
-                  child: Text("Create Post"),
-                ),
+            onPressed: fileAndType == null
+                ? () {}
+                : () async {
+              await ref
+                  .read(postsNotifierProvider.notifier)
+                  .createPost(fileAndType: fileAndType, post: post);
+              context.pop();
+            },
+            child: Text("Create Post"),
+          ),
         ],
       ),
     );

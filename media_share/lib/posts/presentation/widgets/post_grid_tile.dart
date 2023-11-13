@@ -13,17 +13,29 @@ class PostGirdTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.push('/posts/${post.postId}');
-      },
-      child: post.postType == 'videos'
-          ? Container(
-              color: Colors.blue,
-            )
-          : FancyShimmerImage(
-              boxFit: BoxFit.cover,
-              imageUrl: post.mediaUrl,
+        onTap: () {
+          context.push('/posts/${post.postId}');
+        },
+        child: Stack(children: [
+          FancyShimmerImage(
+            boxFit: BoxFit.cover,
+            imageUrl: post.thumbnailUrl == '' ? post.mediaUrl : post
+                .thumbnailUrl,
+          ),
+          post.postType == 'videos'
+              ? const Positioned(
+            bottom: 6,
+            right: 6,
+            child: Icon(
+              Icons.play_circle_fill,
+              color: Colors.white,
+              size: 50,
             ),
+          ):Container(),
+        ],
+
+        )
+
     );
   }
 }

@@ -26,7 +26,18 @@ class _FileDisplayWidgetState extends State<FileDisplayWidget> {
         ..initialize().then((_) {
           setState(() {});
         });
+      _videoController.setLooping(true);
+
     }
+  }
+
+
+  @override
+  void dispose() {
+    if (widget.fileAndType.fileType == FileType.video ) {
+      _videoController.dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -44,9 +55,38 @@ class _FileDisplayWidgetState extends State<FileDisplayWidget> {
 
   Widget _buildVideoPlayer() {
     if (_videoController.value.isInitialized) {
-      return AspectRatio(
-        aspectRatio: _videoController.value.aspectRatio,
-        child: VideoPlayer(_videoController),
+      return Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height * 0.7,
+              ),
+              child: AspectRatio(
+                aspectRatio: _videoController.value.aspectRatio,
+                child: VideoPlayer(_videoController),
+              ),
+            ),
+          ),
+
+          IconButton(
+            onPressed: () {
+              setState(() {
+                if (_videoController.value.isPlaying) {
+                  _videoController.pause();
+                } else {
+                  _videoController.play();
+                }
+              });
+            },
+            icon: Icon(
+              _videoController.value.isPlaying
+                  ? Icons.pause
+                  : Icons.play_arrow,
+            ),
+          ),
+        ],
       );
     } else {
       return Center(
@@ -59,11 +99,4 @@ class _FileDisplayWidgetState extends State<FileDisplayWidget> {
     return Image.file(widget.fileAndType.file);
   }
 
-  @override
-  void dispose() {
-    if (widget.fileAndType.fileType == 'video') {
-      _videoController.dispose();
-    }
-    super.dispose();
-  }
 }
