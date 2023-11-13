@@ -28,7 +28,7 @@ class PostsNotifier extends _$PostsNotifier {
       final mediaFile = fileAndType.file;
       final fileType = fileAndType.fileType;
       Uint8List? thumbnailData;
-      if(fileType == FileType.video) {
+      if(fileType == MediaType.video) {
         thumbnailData = await VideoThumbnail.thumbnailData(
           video: mediaFile.path,
           imageFormat: ImageFormat.JPEG,

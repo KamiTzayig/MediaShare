@@ -30,7 +30,7 @@ class PostsRepositoryFirebase implements PostsRepository {
   Future<void> createPost(
       {required Post post,
       required File mediaFile,
-      required FileType fileType, required Uint8List? thumbnailData}) async {
+      required MediaType fileType, required Uint8List? thumbnailData}) async {
 
     final fileId = const Uuid().v4();
     final mediaRef = _storage

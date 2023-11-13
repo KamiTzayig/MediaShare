@@ -1,12 +1,14 @@
-enum FileType { image, video }
+enum MediaType { image, video, unknown }
 
-extension PathName on FileType {
+extension PathName on MediaType {
   String get pathName {
     switch (this) {
-      case FileType.image:
+      case MediaType.image:
         return 'images';
-      case FileType.video:
+      case MediaType.video:
         return 'videos';
+      case MediaType.unknown:
+        return 'images';
     }
   }
 }

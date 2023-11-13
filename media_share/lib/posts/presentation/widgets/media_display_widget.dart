@@ -11,7 +11,7 @@ class MediaDisplayWidget extends StatefulWidget {
 
   final String? url;
   final File? file;
-  final FileType fileType;
+  final MediaType fileType;
 
   MediaDisplayWidget({ required this.fileType, this.file, this.url });
 
@@ -25,13 +25,13 @@ class _MediaDisplayWidgetState extends State<MediaDisplayWidget> {
   @override
   void initState() {
     super.initState();
-    if (widget.fileType == FileType.video && widget.file != null) {
+    if (widget.fileType == MediaType.video && widget.file != null) {
       _videoController = VideoPlayerController.file(widget.file!)
         ..initialize().then((_) {
           setState(() {});
         });
       _videoController.setLooping(true);
-    } else if (widget.fileType == FileType.video && widget.url != null) {
+    } else if (widget.fileType == MediaType.video && widget.url != null) {
       Uri uri = Uri.parse(widget.url!);
       _videoController = VideoPlayerController.networkUrl(uri)
         ..initialize().then((_) {
@@ -44,7 +44,7 @@ class _MediaDisplayWidgetState extends State<MediaDisplayWidget> {
 
   @override
   void dispose() {
-    if (widget.fileType == FileType.video) {
+    if (widget.fileType == MediaType.video) {
       _videoController.dispose();
     }
     super.dispose();
@@ -52,9 +52,9 @@ class _MediaDisplayWidgetState extends State<MediaDisplayWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.fileType == FileType.video) {
+    if (widget.fileType == MediaType.video) {
       return VideoDisplay(videoController: _videoController);
-    } else if (widget.fileType == FileType.image) {
+    } else if (widget.fileType == MediaType.image) {
       return ImageDisplay(imageFile: widget.file, imageUrl: widget.url);
     } else {
       return Center(

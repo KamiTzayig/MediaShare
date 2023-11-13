@@ -26,8 +26,8 @@ class PostPage extends ConsumerWidget {
         children: [
           MediaDisplayWidget(
             fileType: post.postType == "images"
-                ? FileType.image
-                : FileType.video,
+                ? MediaType.image
+                : MediaType.video,
             url: post.mediaUrl,
           ),
          PostDescription(post: post),

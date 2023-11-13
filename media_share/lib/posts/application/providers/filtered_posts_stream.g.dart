@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'posts_notifier.dart';
+part of 'filtered_posts_stream.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$postsNotifierHash() => r'd7d5a7f8186cccc23de13e97d55427ed8d8307a2';
+String _$filteredPostsStreamHash() =>
+    r'80e06c26bb333b734661e768057dbc8cc4ee8c01';
 
-/// See also [PostsNotifier].
-@ProviderFor(PostsNotifier)
-final postsNotifierProvider =
-    AutoDisposeNotifierProvider<PostsNotifier, bool>.internal(
-  PostsNotifier.new,
-  name: r'postsNotifierProvider',
+/// See also [FilteredPostsStream].
+@ProviderFor(FilteredPostsStream)
+final filteredPostsStreamProvider =
+    AutoDisposeStreamNotifierProvider<FilteredPostsStream, List<Post>>.internal(
+  FilteredPostsStream.new,
+  name: r'filteredPostsStreamProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$postsNotifierHash,
+      : _$filteredPostsStreamHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$PostsNotifier = AutoDisposeNotifier<bool>;
+typedef _$FilteredPostsStream = AutoDisposeStreamNotifier<List<Post>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

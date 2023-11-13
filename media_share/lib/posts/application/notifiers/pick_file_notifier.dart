@@ -19,17 +19,17 @@ class PickFileNotifier extends _$PickFileNotifier {
   Future<void> pickFile() async {
     final ImagePicker picker = ImagePicker();
     File? file = await picker.pickMedia().toFile();
-    FileType? fileType;
+    MediaType? fileType;
 
     switch (file?.path.split('.').last) {
       case 'jpg':
       case 'jpeg':
       case 'png':
-        fileType = FileType.image;
+        fileType = MediaType.image;
         break;
       case 'mp4':
       case 'mov':
-        fileType = FileType.video;
+        fileType = MediaType.video;
         break;
       default:
         fileType = null;

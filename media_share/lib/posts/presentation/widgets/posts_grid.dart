@@ -1,5 +1,5 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:media_share/posts/application/providers/filtered_posts_stream.dart';
 import 'package:media_share/posts/presentation/widgets/post_grid_tile.dart';
 import '../../application/state.dart';
 import '../../domain/models/post.dart';
@@ -15,7 +15,7 @@ class PostsGrid extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<Post>> posts = ref.watch(postsStreamProvider);
+    final AsyncValue<List<Post>> posts = ref.watch(filteredPostsStreamProvider);
     return posts.when(
         data: (List<Post> posts) {
           return GridView.builder(
