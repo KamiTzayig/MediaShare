@@ -2,6 +2,7 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/application/providers/post_data_provider.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
@@ -20,11 +21,8 @@ class PostPage extends ConsumerWidget {
     Post post = ref.watch(postDataProvider(postId));
     bool isUserPost =
         post.userId == AuthFeature.instance.repository.authUser.userId;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(post.postId),
-      ),
-      body: Column(
+    return MainLayout(
+     child: Column(
         children: [
           MediaDisplayWidget(
             fileType: post.postType == "images"

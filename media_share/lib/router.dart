@@ -2,6 +2,7 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/presentation/create_post_page.dart';
 import 'package:media_share/posts/presentation/post_page.dart';
 
@@ -34,8 +35,8 @@ final RoutingConfig loggedOutRoutingConfig = RoutingConfig(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
-      builder: (_, __) => Scaffold(
-        body: EmailAuthBody(),
+      builder: (_, __) => MainLayout(
+        child: EmailAuthBody(),
       ),
     ),
   ],

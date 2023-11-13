@@ -3,6 +3,7 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import '../application/notifiers/pick_file_notifier.dart';
@@ -25,11 +26,8 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
   Widget build(BuildContext context) {
     bool isLoading = ref.watch(postsNotifierProvider);
     FileAndType? fileAndType = ref.watch(pickFileNotifierProvider);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Create Post"),
-      ),
-      body: Column(
+    return MainLayout(
+     child: Column(
         children: [
           fileAndType != null
               ? MediaDisplayWidget(fileType: fileAndType.fileType, file: fileAndType.file,)
