@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 
 import 'comment.dart';
@@ -41,7 +40,7 @@ class Post extends Equatable {
         thumbnailUrl: json['thumbnailUrl'] as String,
         userId: json['userId'] as String,
         createdTimestamp:
-            (json['createdTimestamp'] as Timestamp).millisecondsSinceEpoch,
+            json['createdTimestamp'] as int,
         comments: (json['comments'] as List<dynamic>)
             .map((dynamic e) => Comment.fromJson(e as Map<String, dynamic>))
             .toList(),

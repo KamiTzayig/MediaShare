@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../core/notifiers/theme_notifier.dart';
-import '../posts/application/state.dart';
+import '../../application/notifiers/theme_notifier.dart';
+import '../../../posts/application/state.dart';
 
 class ThemeListTile extends ConsumerWidget {
   const ThemeListTile({super.key});

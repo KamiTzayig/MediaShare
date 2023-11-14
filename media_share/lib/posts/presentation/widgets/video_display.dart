@@ -1,69 +1,29 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
+import 'package:media_share/posts/presentation/widgets/video_display_from_database.dart';
+import 'package:media_share/posts/presentation/widgets/video_display_from_file.dart';
+import 'dart:io';
 
 class VideoDisplay extends StatelessWidget {
-  const VideoDisplay({required this.videoController,  super.key});
-  final VideoPlayerController videoController;
+  const VideoDisplay({
+    this.videoFile,
+    this.videoUrl,
+    Key? key,
+  }) : super(key: key);
+
+  final String? videoUrl;
+  final File? videoFile;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    if (videoController.value.isInitialized) {
-      return Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery
-                    .of(context)
-                    .size
-                    .height * 0.6,
-              ),
-              child: AspectRatio(
-                aspectRatio: videoController.value.aspectRatio,
-                child: VideoPlayer(videoController),
-              ),
-            ),
-          ),
-          Card(
-            child: Column(
-              children: [
-                VideoProgressIndicator(videoController, allowScrubbing: false),
-
-                ListTile(title: _buildMediaControlButton(),),
-              ],
-            ),
-          )
-
-        ],
-      );
+    if (videoFile != null) {
+      return VideoDisplayFromFile(videoFile: videoFile!);
+    } else if (videoUrl != null) {
+      return VideoDisplayFromDatabase(videoUrl: videoUrl!);
     } else {
-      return Container(
-        height: size.height * 0.6,
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
+      return Center(
+        child: Text('Unsupported file type'),
       );
     }
-  }
-
-
-  Widget _buildMediaControlButton() {
-    return IconButton(
-      onPressed: () {
-          if (videoController.value.isPlaying) {
-            videoController.pause();
-          } else {
-            videoController.play();
-          }
-      },
-      icon: Icon(
-        videoController.value.isPlaying
-            ? Icons.pause
-            : Icons.play_arrow,
-      ),
-    );
   }
 }
