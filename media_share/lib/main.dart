@@ -1,6 +1,9 @@
 import 'package:auth_feature/auth_feature.dart' ;
 import 'package:firebase_auth_feature_repository/firebase_auth_feature_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:media_share/posts/data/local_posts_repository_hive.dart';
 import 'package:media_share/router.dart';
 
 import 'core/notifiers/theme_notifier.dart';
@@ -10,13 +13,15 @@ import 'firebase_options.dart';
 void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Hive.initFlutter();
   await FirebaseAuthFeatureRepository.instance
       .initialize(DefaultFirebaseOptions.currentPlatform);
 
   AuthFeature.instance.initialize(
     FirebaseAuthFeatureRepository.instance,
   );
+
+
 
   runApp( const ProviderScope(
     child: MyApp(),
@@ -32,6 +37,9 @@ class MyApp extends ConsumerWidget {
 
     AuthFeature.instance.repository.authUserStream.listen((AuthUser user) {
       if(user.userId != ''){
+        if(!LocalPostsRepositoryHive.instance.isInitialized){
+          LocalPostsRepositoryHive.instance.init();
+        }
           myRoutingConfig.value = loggedInRoutingConfig;
       }else{
           myRoutingConfig.value = loggedOutRoutingConfig;

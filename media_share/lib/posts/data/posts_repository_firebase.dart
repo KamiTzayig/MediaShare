@@ -98,6 +98,7 @@ class PostsRepositoryFirebase implements PostsRepository {
           )
               .map((doc) {
             Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
+            json['createdTimestamp'] = (json['createdTimestamp'] as Timestamp).millisecondsSinceEpoch;
             return Post.fromJson(json);
           }).toList());
 
