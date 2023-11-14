@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-import 'package:media_share/core/extentions/to_file.dart';
+import 'package:media_share/core/domain/extentions/to_file.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

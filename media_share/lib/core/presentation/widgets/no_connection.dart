@@ -12,6 +12,6 @@ class NoConnection extends StatelessWidget {
       alignment: Alignment.center,
       width: size.width,
       child: Text("No Internet Connection", style: TextStyle(color: Colors.white, fontSize: 20),),
-    );;
+    );
   }
 }

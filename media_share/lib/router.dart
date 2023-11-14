@@ -2,11 +2,11 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/presentation/create_post_page.dart';
 import 'package:media_share/posts/presentation/post_page.dart';
 
-import 'main/main_page.dart';
+import 'core/presentation/main/main_layout.dart';
+import 'core/presentation/main/main_page.dart';
 
 final ValueNotifier<RoutingConfig> myRoutingConfig =
     ValueNotifier<RoutingConfig>(loggedOutRoutingConfig);

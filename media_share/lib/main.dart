@@ -6,7 +6,8 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:media_share/posts/data/local_posts_repository_hive.dart';
 import 'package:media_share/router.dart';
 
-import 'core/notifiers/theme_notifier.dart';
+import 'core/application/notifiers/theme_notifier.dart';
+import 'core/data/local_main_repository_hive.dart';
 import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 
@@ -14,6 +15,7 @@ void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  await LocalMainRepositoryHive.instance.init();
   await FirebaseAuthFeatureRepository.instance
       .initialize(DefaultFirebaseOptions.currentPlatform);
 

@@ -2,11 +2,11 @@ import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:media_share/main/main_layout.dart';
 import 'package:media_share/posts/application/providers/post_data_provider.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
 
+import '../../core/presentation/main/main_layout.dart';
 import '../application/state.dart';
 import '../domain/file_type.dart';
 import '../domain/models/post.dart';

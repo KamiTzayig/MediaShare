@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:media_share/main/no_connection.dart';
+import 'package:media_share/core/presentation/widgets/no_connection.dart';
 
-import '../core/providers/internet_connection.dart';
-import '../posts/application/state.dart';
-import 'main_drawer.dart';
+import '../../../posts/application/state.dart';
+import '../../application/providers/internet_connection.dart';
+import '../widgets/main_drawer.dart';
 
 class MainLayout extends ConsumerWidget {
   const MainLayout(

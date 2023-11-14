@@ -1,6 +1,6 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
-import 'package:media_share/main/theme_list_tile.dart';
+import 'package:media_share/core/presentation/widgets/theme_list_tile.dart';
 import 'package:media_share/posts/data/local_posts_repository_hive.dart';
 
 
