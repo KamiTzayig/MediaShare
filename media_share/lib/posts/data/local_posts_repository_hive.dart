@@ -30,27 +30,32 @@ class LocalPostsRepositoryHive {
   StreamController<List<Post>> _postsLocalStream = StreamController<
       List<Post>>.broadcast();
 
+
+  void clearCache() async{
+    await _mediaBox.clear();
+  }
   Future<void> init() async {
     _postsBox = await Hive.openBox<Map>('posts');
     _mediaBox = await Hive.openBox<Uint8List>('media');
 
     _repository.postsStream.listen((posts) async{
 
-      await updatePosts(posts);//todo
+      await updatePosts(posts);
       _postsLocalStream.add(getPosts());
+      print(_mediaBox.length);
 
     });
-
-    _postsBox.listenable().addListener(() {
-
-    });
-
 
     _isInitialized = true;
   }
 
   Stream<List<Post>> get postsLocalStream => _postsLocalStream.stream;
 
+
+  Post getPost(String postId) {
+    bool exists = _postsBox.containsKey(postId);
+    return !exists?Post.unknown(): Post.fromJson(_postsBox.get(postId)!.cast<String, dynamic>()) ;
+  }
   List<Post> getPosts() {
     return _postsBox.values
         .map(
@@ -73,6 +78,20 @@ class LocalPostsRepositoryHive {
 
   Uint8List? getMedia(String url) {
     return _mediaBox.get(url);
+  }
+
+  bool mediaExists(String url) {
+    return _mediaBox.containsKey(url);
+  }
+
+  Future<void> downloadMedia(String url) async {
+    Uint8List? mediaData = await _repository.downloadMedia(url);
+    if(mediaData==null){
+      return;//failed to fetch media
+    }else{
+    await _mediaBox.put(url, mediaData);
+    }
+
   }
 
   Future<void> putMedia(String url, Uint8List data) async {

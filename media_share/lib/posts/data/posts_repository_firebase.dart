@@ -12,9 +12,12 @@ import '../domain/posts_repository.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
+import 'local_posts_repository_hive.dart';
+
 class PostsRepositoryFirebase implements PostsRepository {
   final _firestore = FirebaseFirestore.instance;
   final _storage = FirebaseStorage.instance;
+
 
   @override
   Future<void> createComment(Comment comment) async {
@@ -44,9 +47,11 @@ class PostsRepositoryFirebase implements PostsRepository {
         .child('thumbnails')
         .child("thumb-" + fileId);
 
+    final Uint8List mediaData = await mediaFile.readAsBytes();
 
-    final mediaUploadTask = await mediaRef.putFile(
-      mediaFile,
+
+    final mediaUploadTask = await mediaRef.putData(
+      mediaData,
     );
 
     if(thumbnailData != null){
@@ -55,8 +60,8 @@ class PostsRepositoryFirebase implements PostsRepository {
       );
     }
     else{
-      final thumbnailUploadTask = await thumbnailRef.putFile(
-        mediaFile,
+      final thumbnailUploadTask = await thumbnailRef.putData(
+        mediaData,
       );
     }
 
@@ -65,16 +70,37 @@ class PostsRepositoryFirebase implements PostsRepository {
 
       final mediaUrl = await mediaRef.getDownloadURL();
       final thumbnailUrl = await thumbnailRef.getDownloadURL();
+
       post = post.copyWith(mediaUrl: mediaUrl,thumbnailUrl: thumbnailUrl, postType: fileType.pathName);
       Map<String, dynamic> json = post.toJson();
       json['createdTimestamp'] = FieldValue.serverTimestamp();
 
       await _firestore.collection('posts').add(json);
+
+      final _localPostsRepositoryHive = LocalPostsRepositoryHive.instance;
+      await _localPostsRepositoryHive.putMedia(mediaUrl, mediaData);
+      await _localPostsRepositoryHive.putMedia(thumbnailUrl, thumbnailData??mediaData);
+
+
     } catch (e) {
 
       print(e);
       throw e;
     }
+  }
+
+
+  @override
+  Future<Uint8List?> downloadMedia(String url) async{
+    final ref = _storage.refFromURL(url);
+    try{
+      final data = await ref.getData(20974760);
+      return data;
+    }
+    catch(e) {
+      return null;
+    }
+
   }
 
   @override
@@ -110,4 +136,6 @@ class PostsRepositoryFirebase implements PostsRepository {
         .doc(postId)
         .update({'description': description});
   }
+
+
 }

@@ -13,6 +13,8 @@ abstract class PostsRepository {
   Future<void> deletePost(String postId);
   Future<void> createComment(Comment comment);
   Future<void> deleteComment(String commentId);
+  Future<Uint8List?> downloadMedia(String url);
+
 
 
 }
