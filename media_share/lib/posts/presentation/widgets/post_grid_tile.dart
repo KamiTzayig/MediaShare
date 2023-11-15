@@ -19,7 +19,6 @@ class PostGirdTile extends ConsumerWidget {
     final AsyncValue<Uint8List?> thumbnailData =
         ref.watch(mediaLocalCacheProvider(post.thumbnailUrl));
 
-
     return InkWell(
         onTap: () {
           context.push('/posts/${post.postId}');
@@ -41,11 +40,11 @@ class PostGirdTile extends ConsumerWidget {
                 imageUrl: '',
               ),
             ),
-            FancyShimmerImage(
-              boxFit: BoxFit.cover,
-              imageUrl:
-                  post.thumbnailUrl == '' ? post.mediaUrl : post.thumbnailUrl,
-            ),
+            // FancyShimmerImage(
+            //   boxFit: BoxFit.cover,
+            //   imageUrl:
+            //       post.thumbnailUrl == '' ? post.mediaUrl : post.thumbnailUrl,
+            // ),
             post.postType == 'videos'
                 ? const Positioned(
                     bottom: 6,

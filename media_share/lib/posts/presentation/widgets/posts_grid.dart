@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:media_share/posts/application/providers/filtered_posts_stream.dart';
 import 'package:media_share/posts/presentation/widgets/post_grid_tile.dart';
 import '../../application/state.dart';
@@ -18,10 +19,11 @@ class PostsGrid extends ConsumerWidget {
     final AsyncValue<List<Post>> posts = ref.watch(filteredPostsStreamProvider);
     return posts.when(
         data: (List<Post> posts) {
-          return GridView.builder(
+          return MasonryGridView.count(
             shrinkWrap: true,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            crossAxisCount: 2,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
             itemCount: posts.length,
             itemBuilder: (context, index) {
               // return GridTile(child: Container(color: Colors.red),);
