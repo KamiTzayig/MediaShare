@@ -1,7 +1,7 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:media_share/posts/application/notifiers/type_filter_notifier.dart';
-import 'package:media_share/posts/domain/file_type.dart';
+import 'package:media_share/posts/domain/models/file_type.dart';
 import './widgets/posts_grid.dart';
 
 class PostsView extends ConsumerWidget {
@@ -14,7 +14,9 @@ class PostsView extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         ListTile(
-            trailing: DropdownButton(items: [
+            trailing: DropdownButton(
+                hint: Text("Filter"),
+                items: [
         DropdownMenuItem(
         child: Text("All"),
     value: MediaType.unknown,

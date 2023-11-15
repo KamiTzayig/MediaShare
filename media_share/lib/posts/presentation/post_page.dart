@@ -9,7 +9,7 @@ import 'package:media_share/posts/presentation/widgets/post_description.dart';
 import '../../core/application/providers/internet_connection.dart';
 import '../../core/presentation/main/main_layout.dart';
 import '../application/state.dart';
-import '../domain/file_type.dart';
+import '../domain/models/file_type.dart';
 import '../domain/models/post.dart';
 
 class PostPage extends ConsumerWidget {
@@ -20,13 +20,14 @@ class PostPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Post post = ref.watch(postDataProvider(postId));
+    bool init = post == Post.unknown();
     AsyncValue<bool> internetConnected = ref.watch(internetConnectionProvider );
-
+Size size = MediaQuery.of(context).size;
     return MainLayout(
      child: SingleChildScrollView(
        child: Column(
           children: [
-            MediaDisplayWidget(
+           init? Container(height: size.height *0.7,): MediaDisplayWidget(
               fileType: post.postType == "videos"
                   ? MediaType.video
                   : MediaType.image,

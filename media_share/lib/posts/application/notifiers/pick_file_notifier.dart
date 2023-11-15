@@ -4,7 +4,7 @@ import 'package:media_share/core/domain/extentions/to_file.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../domain/file_type.dart';
+import '../../domain/models/file_type.dart';
 
 part 'pick_file_notifier.g.dart';
 
@@ -15,13 +15,23 @@ class PickFileNotifier extends _$PickFileNotifier {
     return null;
   }
 
+
+
 // pick file using FileType
   Future<void> pickFile() async {
     final ImagePicker picker = ImagePicker();
-    File? file = await picker.pickMedia().toFile();
+    XFile? xFile = await picker.pickMedia();
+
+    String fileName = xFile?.name??'';
+    File? file = xFile.toFile();
+
+    String? blobUrl = file?.path;
+    if(file?.path.substring(0,4) != 'blob'){
+      blobUrl = null;
+    }
     MediaType? fileType;
 
-    switch (file?.path.split('.').last) {
+    switch (fileName.split('.').last) {
       case 'jpg':
       case 'jpeg':
       case 'png':
@@ -32,13 +42,13 @@ class PickFileNotifier extends _$PickFileNotifier {
         fileType = MediaType.video;
         break;
       default:
-        fileType = null;
+
+          fileType = null;
     }
 
-    print("fileType: $fileType");
 
     FileAndType? fileAndType =
-        file != null && fileType != null ? FileAndType(file: file, fileType: fileType) : null;
+        file != null && fileType != null ? FileAndType(file: file, fileType: fileType, blobUrl: blobUrl) : null;
     state = fileAndType;
   }
 }

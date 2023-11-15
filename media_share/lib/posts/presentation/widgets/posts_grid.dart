@@ -22,7 +22,7 @@ class PostsGrid extends ConsumerWidget {
         data: (List<Post> posts) {
           return MasonryGridView.count(
             shrinkWrap: true,
-            crossAxisCount: (size.width~/400) +1,
+            crossAxisCount: (size.width~/350) +1,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
             itemCount: posts.length,

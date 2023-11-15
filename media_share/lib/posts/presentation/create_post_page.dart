@@ -34,6 +34,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                 ? MediaDisplayWidget(
                     fileType: fileAndType.fileType,
                     file: fileAndType.file,
+                    url: fileAndType.blobUrl,
                   )
                 : Container(
                     alignment: Alignment.center,
