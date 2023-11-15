@@ -19,7 +19,6 @@ class MediaLocalCache extends _$MediaLocalCache {
     else{
       await _localPostsRepositoryHive.downloadMedia(url);
       final mediaData = _localPostsRepositoryHive.getMedia(url);
-
       return mediaData;
     }
 

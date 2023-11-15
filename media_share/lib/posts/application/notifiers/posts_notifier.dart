@@ -2,10 +2,11 @@
 import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+// import 'package:video_thumbnail/video_thumbnail.dart';
 import '../../data/posts_repository_firebase.dart';
 import '../../domain/models/file_type.dart';
 import '../../domain/models/comment.dart';
@@ -41,9 +42,9 @@ class PostsNotifier extends _$PostsNotifier {
         }
       }
       if(fileType == MediaType.video) {
+
         thumbnailData = await VideoThumbnail.thumbnailData(
-          video: mediaFile.path,
-          imageFormat: ImageFormat.JPEG,
+          video:  mediaFile.path,
         );
       }
 
