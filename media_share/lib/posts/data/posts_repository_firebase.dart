@@ -28,27 +28,33 @@ class PostsRepositoryFirebase implements PostsRepository {
 
   StreamController<double> uploadStreamController = StreamController<double>.broadcast();
 
-  Stream<double> get uploadProgressStream => uploadStreamController.stream;
+ Stream<List<Post>>? _postsStream;
 
-  bool get uploadStreamHasListeners => uploadStreamController.hasListener;
+  Stream<double> get uploadProgressStream => uploadStreamController.stream;
 
 
 
   @override
-  Stream<List<Post>> get postsStream => _firestore
-      .collection('posts')
-      .orderBy('createdTimestamp', descending: true)
-      .snapshots(includeMetadataChanges: true)
-      .map((snapshot) => snapshot.docs
-      .where(
-        (doc) => !doc.metadata.hasPendingWrites,
-  )
-      .map((doc) {
-    Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
-    json['createdTimestamp'] =
-        (json['createdTimestamp'] as Timestamp).millisecondsSinceEpoch;
-    return Post.fromJson(json);
-  }).toList());
+  Stream<List<Post>> get postsStream {
+    _postsStream ??= _firestore
+          .collection('posts')
+          .orderBy('createdTimestamp', descending: true)
+          .snapshots(includeMetadataChanges: true)
+          .map((snapshot) => snapshot.docs
+          .where(
+            (doc) => !doc.metadata.hasPendingWrites,
+      )
+          .map((doc) {
+        Map<String, dynamic> json = {...doc.data(), 'postId': doc.id};
+        json['createdTimestamp'] =
+            (json['createdTimestamp'] as Timestamp).millisecondsSinceEpoch;
+        return Post.fromJson(json);
+      }).toList());
+
+    return _postsStream!;
+    }
+
+
 
   @override
   Future<void> createComment(Comment comment) async {

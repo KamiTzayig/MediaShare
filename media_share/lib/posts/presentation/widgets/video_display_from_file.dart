@@ -85,6 +85,7 @@ class _VideoDisplayFromFileState extends State<VideoDisplayFromFile> {
         } else {
           _videoController.play();
         }
+        setState(() {});
       },
       icon: Icon(
         _videoController.value.isPlaying ? Icons.pause : Icons.play_arrow,

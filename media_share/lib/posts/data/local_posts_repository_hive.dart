@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:media_share/posts/data/posts_repository_firebase.dart';
+import 'package:rxdart/rxdart.dart';
 
 import '../domain/models/post.dart';
 
@@ -27,8 +28,7 @@ class LocalPostsRepositoryHive {
 
   bool get isInitialized => _isInitialized;
 
-  StreamController<List<Post>> _postsLocalStream = StreamController<
-      List<Post>>.broadcast();
+ final StreamController<List<Post>> _postsLocalStreamController = BehaviorSubject<List<Post>>();
 
 
   void clearCache() async{
@@ -39,17 +39,17 @@ class LocalPostsRepositoryHive {
     _mediaBox = await Hive.openBox<Uint8List>('media');
 
     _repository.postsStream.listen((posts) async{
-
       await updatePosts(posts);
-      _postsLocalStream.add(getPosts());
-      print(_mediaBox.length);
-
+      _postsLocalStreamController.add(getPosts());
     });
+
+
+
 
     _isInitialized = true;
   }
 
-  Stream<List<Post>> get postsLocalStream => _postsLocalStream.stream;
+  Stream<List<Post>> get postsLocalStream =>_postsLocalStreamController.stream;
 
 
   Post getPost(String postId) {

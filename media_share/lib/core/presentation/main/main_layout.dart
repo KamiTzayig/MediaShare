@@ -21,6 +21,7 @@ class MainLayout extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<bool> internetConnection = ref.watch(internetConnectionProvider);
+
     return SafeArea(
       child: Scaffold(
             appBar: AppBar(
@@ -31,7 +32,7 @@ class MainLayout extends ConsumerWidget {
               children: [
                 child,
                 Positioned(
-                  bottom: 0,
+                  top: 0,
                   child: internetConnection.when(
                     data: (bool active) {
                       return active

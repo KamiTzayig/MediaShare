@@ -1,11 +1,12 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:media_share/posts/application/providers/post_data_provider.dart';
+import 'package:media_share/posts/presentation/widgets/delete_post_button.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
 
+import '../../core/application/providers/internet_connection.dart';
 import '../../core/presentation/main/main_layout.dart';
 import '../application/state.dart';
 import '../domain/file_type.dart';
@@ -19,8 +20,8 @@ class PostPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Post post = ref.watch(postDataProvider(postId));
-    bool isUserPost =
-        post.userId == AuthFeature.instance.repository.authUser.userId;
+    AsyncValue<bool> internetConnected = ref.watch(internetConnectionProvider );
+
     return MainLayout(
      child: SingleChildScrollView(
        child: Column(
@@ -32,21 +33,22 @@ class PostPage extends ConsumerWidget {
               url: post.mediaUrl,
             ),
            PostDescription(post: post, onEdit: (String postId, String description) async {
+              if (internetConnected.hasValue && internetConnected.value == false) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('No internet connection'),
+                  ),
+                );
+                return;
+              }
              await ref
                  .read(postsNotifierProvider.notifier)
                  .editPostDescription( postId: postId,description:  description);
            }),
 
-            isUserPost
-                ? ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red[100]),
-                onPressed: () async{
-                 await ref.read(postsNotifierProvider.notifier).deletePost(postId);
-                 context.pop();
-
-
-            }, child: Text('delete post',style: TextStyle(color: Colors.red),),)
-                : const SizedBox(),
+            DeletePostButton(
+              post: post,
+            ),
           ],
         ),
      ),

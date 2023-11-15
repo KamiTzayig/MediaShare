@@ -13,14 +13,13 @@ class FilteredPostsStream extends _$FilteredPostsStream {
 
   @override
   Stream<List<Post>> build() {
-    Stream<List<Post>> posts = _localRepository.postsLocalStream;
     MediaType mediaType = ref.watch(typeFilterNotifierProvider);
+    Stream<List<Post>> posts = _localRepository.postsLocalStream;
 
-    if (mediaType == MediaType.unknown) {
+   if (mediaType == MediaType.unknown) {
       return posts;
     } else {
       return posts.map((posts) => posts.where((post) {
-
             return post.postType == mediaType.pathName;
           }).toList());
     }
