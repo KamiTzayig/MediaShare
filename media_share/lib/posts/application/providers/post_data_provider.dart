@@ -7,11 +7,10 @@ part 'post_data_provider.g.dart';
 
 @riverpod
 class PostData extends _$PostData {
-
   @override
   Post build(String postId) {
     return ref.watch(postsStreamProvider).when(
-        data: (posts) => posts.firstWhere((post) => post.postId == postId),
+        data: (posts) => posts.firstWhere((post) => post.postId == postId, orElse: () => Post.unknown()),
         error: (_, __) => Post.unknown(),
         loading: () => Post.unknown());
   }
