@@ -17,16 +17,16 @@ class PostsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<Post>> posts = ref.watch(filteredPostsStreamProvider);
+    Size size = MediaQuery.of(context).size;
     return posts.when(
         data: (List<Post> posts) {
           return MasonryGridView.count(
             shrinkWrap: true,
-            crossAxisCount: 2,
+            crossAxisCount: (size.width~/400) +1,
             mainAxisSpacing: 4,
             crossAxisSpacing: 4,
             itemCount: posts.length,
             itemBuilder: (context, index) {
-              // return GridTile(child: Container(color: Colors.red),);
               return PostGirdTile(post: posts[index]);
             },
           );

@@ -32,6 +32,7 @@ class LocalPostsRepositoryHive {
 
 
   void clearCache() async{
+
     await _mediaBox.clear();
   }
   Future<void> init() async {
