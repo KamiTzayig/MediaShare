@@ -54,6 +54,7 @@ class MyApp extends ConsumerWidget {
       title: 'Media Share',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        brightness: Brightness.light,
         useMaterial3: true,
       ),
       darkTheme: ThemeData.dark().copyWith(

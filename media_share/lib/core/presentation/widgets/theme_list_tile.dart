@@ -8,10 +8,10 @@ class ThemeListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
+    ref.watch(themeNotifierProvider);
     return  SwitchListTile(
       title: Text('Dark Mode'),
-      value: ref.watch(themeNotifierProvider) == ThemeMode.dark,
+      value: Theme.of(context).brightness == Brightness.dark,
       onChanged: (bool value) {
         if (value) {
           ref.read(themeNotifierProvider.notifier).setThemeMode(ThemeMode.dark);
