@@ -25,6 +25,6 @@ class LocalMainRepositoryHive {
 
   ThemeMode getThemeMode() {
     return ThemeMode.values[_settingsBox.get('themeMode',
-        defaultValue: {'mode': ThemeMode.system})?['mode'] as int];
+        defaultValue: {'mode': ThemeMode.system.index})?['mode'] as int];
   }
 }

@@ -3,15 +3,12 @@ import 'package:media_share/posts/application/notifiers/type_filter_notifier.dar
 import 'package:media_share/posts/domain/file_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../data/local_posts_repository_hive.dart';
-import '../../data/posts_repository_firebase.dart';
 import '../../domain/models/post.dart';
-import '../../domain/posts_repository.dart';
 
 part 'filtered_posts_stream.g.dart';
 
 @riverpod
 class FilteredPostsStream extends _$FilteredPostsStream {
-  // final PostsRepository _repository = PostsRepositoryFirebase();
   final LocalPostsRepositoryHive _localRepository = LocalPostsRepositoryHive.instance;
 
   @override

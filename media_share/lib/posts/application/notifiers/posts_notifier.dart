@@ -15,7 +15,7 @@ part 'posts_notifier.g.dart';
 
 @riverpod
 class PostsNotifier extends _$PostsNotifier {
-  final PostsRepository _repository = PostsRepositoryFirebase();
+  final PostsRepository _repository = PostsRepositoryFirebase.instance;
 
   @override
   bool build() => false;

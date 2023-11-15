@@ -18,7 +18,7 @@ class LocalPostsRepositoryHive {
   static LocalPostsRepositoryHive get instance => _singleton;
 
 
-  final PostsRepositoryFirebase _repository = PostsRepositoryFirebase();
+  final PostsRepositoryFirebase _repository = PostsRepositoryFirebase.instance;
 
   late Box<Map<dynamic, dynamic>> _postsBox;
   late Box<Uint8List> _mediaBox;
