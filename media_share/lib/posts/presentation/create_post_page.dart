@@ -5,7 +5,7 @@ import 'package:media_share/posts/domain/models/file_and_type.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
 import 'package:media_share/posts/presentation/widgets/upload_post_button.dart';
-import '../../core/presentation/main/main_layout.dart';
+import '../../core/presentation/main_layout.dart';
 import '../application/notifiers/pick_file_notifier.dart';
 import '../application/state.dart';
 import '../domain/models/post.dart';

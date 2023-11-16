@@ -7,7 +7,7 @@ import 'package:media_share/posts/presentation/widgets/media_display_widget.dart
 import 'package:media_share/posts/presentation/widgets/post_description.dart';
 
 import '../../core/application/providers/internet_connection.dart';
-import '../../core/presentation/main/main_layout.dart';
+import '../../core/presentation/main_layout.dart';
 import '../application/state.dart';
 import '../domain/models/file_type.dart';
 import '../domain/models/post.dart';

@@ -5,8 +5,8 @@ import 'package:go_router/go_router.dart';
 import 'package:media_share/posts/presentation/create_post_page.dart';
 import 'package:media_share/posts/presentation/post_page.dart';
 
-import 'core/presentation/main/main_layout.dart';
-import 'core/presentation/main/main_page.dart';
+import 'core/presentation/main_layout.dart';
+import 'core/presentation/main_page.dart';
 
 final ValueNotifier<RoutingConfig> myRoutingConfig =
     ValueNotifier<RoutingConfig>(loggedOutRoutingConfig);

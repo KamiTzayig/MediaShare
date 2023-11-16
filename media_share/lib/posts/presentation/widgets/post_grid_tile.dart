@@ -35,7 +35,7 @@ class PostGirdTile extends ConsumerWidget {
                 data,
                 fit: BoxFit.cover,
               ),
-              loading: () =>  Container(color: Colors.grey[300],),
+              loading: () =>   Container(color: Colors.grey, height: 300, child: Center( child: CircularProgressIndicator(),)),
               error: (error, stack) => FancyShimmerImage(
                 boxFit: BoxFit.cover,
                 color: Colors.red,
