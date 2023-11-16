@@ -16,22 +16,21 @@ class PickFileNotifier extends _$PickFileNotifier {
   }
 
 
-
 // pick file using FileType
-  Future<void> pickFile() async {
-    final ImagePicker picker = ImagePicker();
-    XFile? xFile = await picker.pickMedia();
 
-    String fileName = xFile?.name??'';
+  Future<void> _processFile(XFile? xFile) async {
+    String fileName = xFile?.name ?? '';
     File? file = xFile.toFile();
 
     String? blobUrl = file?.path;
-    if(file?.path.substring(0,4) != 'blob'){
+    if (file?.path.substring(0, 4) != 'blob') {
       blobUrl = null;
     }
     MediaType? fileType;
 
-    switch (fileName.split('.').last) {
+    switch (fileName
+        .split('.')
+        .last) {
       case 'jpg':
       case 'jpeg':
       case 'png':
@@ -42,13 +41,25 @@ class PickFileNotifier extends _$PickFileNotifier {
         fileType = MediaType.video;
         break;
       default:
-
-          fileType = null;
+        fileType = null;
     }
 
-
     FileAndType? fileAndType =
-        file != null && fileType != null ? FileAndType(file: file, fileType: fileType, blobUrl: blobUrl) : null;
+    file != null && fileType != null ? FileAndType(
+        file: file, fileType: fileType, blobUrl: blobUrl) : null;
     state = fileAndType;
+  }
+
+  Future<void> pickFile() async {
+    final ImagePicker picker = ImagePicker();
+    XFile? xFile = await picker.pickMedia();
+    await _processFile(xFile);
+  }
+
+
+  Future<void> pickFileFromCamera() async {
+    final ImagePicker picker = ImagePicker();
+    XFile? xFile = await picker.pickImage(source: ImageSource.camera);
+    await _processFile(xFile);
   }
 }

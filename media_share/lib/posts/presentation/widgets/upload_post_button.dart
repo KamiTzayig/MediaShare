@@ -22,7 +22,7 @@ class UploadPostButton extends ConsumerWidget {
 
     return
       uploadProgress.when(
-        data: (progress) => LinearProgressIndicator(value: progress),
+        data: (progress) => _buildUploadProgressIndicator(progress),
         error: (_, __) => Text(_.toString()),
         loading: () =>  ElevatedButton(
           onPressed: fileAndType == null
@@ -52,7 +52,15 @@ class UploadPostButton extends ConsumerWidget {
           child: Text('upload post')
       )
       );
+  }
 
-
+  Widget _buildUploadProgressIndicator(double progress) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        LinearProgressIndicator(value: progress,minHeight: 10),
+        Text('${(progress * 100).toStringAsFixed(2)} %'),
+      ],
+    );
   }
 }

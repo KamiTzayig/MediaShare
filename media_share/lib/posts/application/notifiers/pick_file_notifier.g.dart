@@ -6,7 +6,7 @@ part of 'pick_file_notifier.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$pickFileNotifierHash() => r'97f844db966612e95cfcdf38fb7624743660f444';
+String _$pickFileNotifierHash() => r'66629f7040d76cc2de726ae5b08ec2f8848c1cac';
 
 /// See also [PickFileNotifier].
 @ProviderFor(PickFileNotifier)

@@ -41,7 +41,8 @@ class VideoDisplayFromDatabase extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    late AsyncValue<Uint8List?> imageData =
+
+    final AsyncValue<Uint8List?> imageData =
         ref.watch(mediaLocalCacheProvider(videoUrl));
 
     Size size = MediaQuery.of(context).size;
@@ -72,7 +73,9 @@ class VideoDisplayFromDatabase extends ConsumerWidget {
             },
             error: (_, __) => Container(
               height: 600,
-              color: Colors.red,
+              child: Center(
+                child: Text(_.toString()),
+              )
             ),
             loading: () => Container(
               height: size.height * 0.6,

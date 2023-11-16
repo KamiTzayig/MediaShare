@@ -6,7 +6,7 @@ part of 'upload_status_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$uploadStatusHash() => r'7ffabc033b4fe8d3c4d8980df94f37f7f3960a58';
+String _$uploadStatusHash() => r'92976ac3f84ebaedddefbe6dc06a2037a043eff5';
 
 /// See also [UploadStatus].
 @ProviderFor(UploadStatus)
