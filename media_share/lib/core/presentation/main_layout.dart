@@ -25,9 +25,9 @@ class MainLayout extends ConsumerWidget {
     return SafeArea(
       child: Scaffold(
             appBar: AppBar(
-              title: Text("Media Share"),
+              title: const Text("Media Share"),
             ),
-            drawer: isMainPage ? MainDrawer() : null,
+            drawer: isMainPage ? const MainDrawer() : null,
             body: Stack(
               children: [
                 child,
@@ -37,10 +37,10 @@ class MainLayout extends ConsumerWidget {
                     data: (bool active) {
                       return active
                           ? const SizedBox()
-                          : NoConnection();
+                          : const NoConnection();
                     },
-                    error: (_, __) => NoConnection(),
-                    loading: () => NoConnection(),
+                    error: (_, __) => const NoConnection(),
+                    loading: () => const NoConnection(),
                   ),)
               ],
             ),

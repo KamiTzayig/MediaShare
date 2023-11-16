@@ -35,9 +35,8 @@ class PostsGrid extends ConsumerWidget {
       );
     },
     error: (_, StackTrace stackTrace) {
-    print(_);
-    print(stackTrace);
-    return Center(child: Text("error"),);
+
+    return const Center(child: Text("error"),);
     },
     loading: () =>MasonryGridView.count(
     shrinkWrap: true,
@@ -46,7 +45,7 @@ class PostsGrid extends ConsumerWidget {
     crossAxisSpacing: 4,
     itemCount: 30,
     itemBuilder: (context, index) {
-    return Container(color: Colors.grey, height: 300, child: Center( child: CircularProgressIndicator(),));      },
+    return Container(color: Colors.grey, height: 300, child: const Center( child: CircularProgressIndicator(),));      },
     )
     );
   }

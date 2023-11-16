@@ -1,6 +1,5 @@
-import 'package:auth_feature/auth_feature.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:media_share/posts/application/providers/post_data_provider.dart';
 import 'package:media_share/posts/presentation/widgets/delete_post_button.dart';
 import 'package:media_share/posts/presentation/widgets/media_display_widget.dart';
@@ -8,7 +7,7 @@ import 'package:media_share/posts/presentation/widgets/post_description.dart';
 
 import '../../core/application/providers/internet_connection.dart';
 import '../../core/presentation/main_layout.dart';
-import '../application/state.dart';
+import '../application/notifiers/posts_notifier.dart';
 import '../domain/models/file_type.dart';
 import '../domain/models/post.dart';
 
@@ -36,7 +35,7 @@ Size size = MediaQuery.of(context).size;
            PostDescription(post: post, onEdit: (String postId, String description) async {
               if (internetConnected.hasValue && internetConnected.value == false) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('No internet connection'),
                   ),
                 );

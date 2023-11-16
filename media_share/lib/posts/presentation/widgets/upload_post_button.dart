@@ -28,7 +28,7 @@ class UploadPostButton extends ConsumerWidget {
           onPressed: fileAndType == null
               ? () {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('No media selected'),
               ),
             );
@@ -38,7 +38,7 @@ class UploadPostButton extends ConsumerWidget {
 
             if (internetConnected.hasValue && internetConnected.value == false) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
+                const SnackBar(
                   content: Text('No internet connection'),
                 ),
               );
@@ -49,7 +49,7 @@ class UploadPostButton extends ConsumerWidget {
                 .createPost(fileAndType: fileAndType!, post: post);
             context.pop();
           },
-          child: Text('upload post')
+          child: const Text('upload post')
       )
       );
   }

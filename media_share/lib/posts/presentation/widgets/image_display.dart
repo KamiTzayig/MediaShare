@@ -1,8 +1,6 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -45,9 +43,9 @@ class ImageDisplay extends ConsumerWidget {
                   imageUrl: '',
                 ),
               )
-            : Container(
+            : SizedBox(
                 height: size.height * 0.7,
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               );
@@ -59,9 +57,9 @@ class ImageDisplay extends ConsumerWidget {
       frameBuilder: (BuildContext context, Widget child, int? frame,
           bool wasSynchronouslyLoaded) {
         return frame == null
-            ? Container(
+            ? SizedBox(
                 height: size.height * 0.7,
-                child: Center(
+                child: const Center(
                   child: CircularProgressIndicator(),
                 ),
               )
@@ -87,9 +85,9 @@ class ImageDisplay extends ConsumerWidget {
             frameBuilder: (BuildContext context, Widget child, int? frame,
                 bool wasSynchronouslyLoaded) {
               return frame == null
-                  ? Container(
+                  ? SizedBox(
                       height: size.height * 0.7,
-                      child: Center(
+                      child: const Center(
                         child: CircularProgressIndicator(),
                       ),
                     )
@@ -110,9 +108,9 @@ class ImageDisplay extends ConsumerWidget {
       frameBuilder: (BuildContext context, Widget child, int? frame,
           bool wasSynchronouslyLoaded) {
         return frame == null
-            ? Container(
+            ? SizedBox(
           height: size.height * 0.7,
-          child: Center(
+          child: const Center(
             child: CircularProgressIndicator(),
           ),
         )

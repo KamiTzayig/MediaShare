@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -35,7 +34,7 @@ class PostGirdTile extends ConsumerWidget {
                 data,
                 fit: BoxFit.cover,
               ),
-              loading: () =>   Container(color: Colors.grey, height: 300, child: Center( child: CircularProgressIndicator(),)),
+              loading: () =>   Container(color: Colors.grey, height: 300, child: const Center( child: CircularProgressIndicator(),)),
               error: (error, stack) => FancyShimmerImage(
                 boxFit: BoxFit.cover,
                 color: Colors.red,

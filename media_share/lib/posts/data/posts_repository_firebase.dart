@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:media_share/posts/domain/models/file_type.dart';
@@ -88,7 +87,7 @@ class PostsRepositoryFirebase implements PostsRepository {
         .ref()
         .child(post.userId)
         .child('thumbnails')
-        .child("thumb-" + fileId);
+        .child("thumb-$fileId");
 
     late Uint8List mediaBytes;
 
@@ -123,7 +122,6 @@ class PostsRepositoryFirebase implements PostsRepository {
 
         final double progress = (snapshot.bytesTransferred.toDouble() +
             thumbnailUploadTask.snapshot.bytesTransferred.toDouble())/totalBytes;
-        print('Upload progress: $progress');
         uploadStreamController.add(progress);
       });
 
@@ -143,13 +141,13 @@ class PostsRepositoryFirebase implements PostsRepository {
 
       await _firestore.collection('posts').add(json);
 
-      final _localPostsRepositoryHive = LocalPostsRepositoryHive.instance;
-      await _localPostsRepositoryHive.putMedia(mediaUrl, mediaBytes);
-      await _localPostsRepositoryHive.putMedia(
+      final localPostsRepositoryHive = LocalPostsRepositoryHive.instance;
+      await localPostsRepositoryHive.putMedia(mediaUrl, mediaBytes);
+      await localPostsRepositoryHive.putMedia(
           thumbnailUrl, thumbnailData ?? mediaBytes);
     } catch (e) {
       print(e);
-      throw e;
+      rethrow;
     } finally {
       uploadStreamController.add(0.0);
     }

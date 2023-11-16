@@ -10,10 +10,10 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainLayout(
+    return const MainLayout(
       isMainPage: true,
-      child: PostsView(),
       floatingActionButton: CreatePostButton(),
+      child: PostsView(),
     );
   }
 }

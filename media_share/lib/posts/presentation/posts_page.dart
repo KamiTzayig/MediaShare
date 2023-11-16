@@ -1,5 +1,5 @@
-import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:media_share/posts/application/notifiers/type_filter_notifier.dart';
 import 'package:media_share/posts/domain/models/file_type.dart';
 import './widgets/posts_grid.dart';
@@ -15,26 +15,27 @@ class PostsView extends ConsumerWidget {
       children: [
         ListTile(
             trailing: DropdownButton(
-                hint: Text("Filter"),
-                items: [
-        DropdownMenuItem(
-        child: Text("All"),
-    value: MediaType.unknown,
-    ),
-          DropdownMenuItem(
-            child: Icon(Icons.image),
-            value: MediaType.image,
-          ),
-              DropdownMenuItem(
-                child: Icon(Icons.video_library_outlined),
-                value: MediaType.video,
-              )
-        ], onChanged: (MediaType? type) {
-          if (type != null) {
-            ref.read(typeFilterNotifierProvider.notifier).filter(type);
-          }
-        })),
-        Expanded(
+                hint: const Text("Filter"),
+                items: const [
+                  DropdownMenuItem(
+                    value: MediaType.unknown,
+                    child: Text("All"),
+                  ),
+                  DropdownMenuItem(
+                    value: MediaType.image,
+                    child: Icon(Icons.image),
+                  ),
+                  DropdownMenuItem(
+                    value: MediaType.video,
+                    child: Icon(Icons.video_library_outlined),
+                  )
+                ],
+                onChanged: (MediaType? type) {
+                  if (type != null) {
+                    ref.read(typeFilterNotifierProvider.notifier).filter(type);
+                  }
+                })),
+        const Expanded(
           child: PostsGrid(),
         ),
       ],

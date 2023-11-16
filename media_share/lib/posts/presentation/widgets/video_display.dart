@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:media_share/posts/presentation/widgets/video_display_from_database.dart';
 import 'package:media_share/posts/presentation/widgets/video_display_from_file.dart';
@@ -16,13 +15,18 @@ class VideoDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     if (videoUrl != null) {
       return VideoDisplayFromDatabase(videoUrl: videoUrl!);
     } else if (videoFile != null) {
       return VideoDisplayFromFile(videoFile: videoFile!);
     } else {
-      return Center(
-        child: Text('Unsupported file type'),
+      return Container(
+        height:size.height * 0.7,
+        color: Colors.grey[300],
+        child: const Center(
+          child: Text('Unsupported file type'),
+        ),
       );
     }
   }

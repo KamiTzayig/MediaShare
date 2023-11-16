@@ -1,12 +1,11 @@
-import 'package:auth_feature/auth_feature.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:auth_feature/auth_feature.dart' show EmailAuthBody;
+import 'package:flutter/foundation.dart' show  ValueNotifier;
 import 'package:go_router/go_router.dart';
-import 'package:media_share/posts/presentation/create_post_page.dart';
-import 'package:media_share/posts/presentation/post_page.dart';
+import 'package:media_share/posts/presentation/create_post_page.dart' show CreatePostPage;
+import 'package:media_share/posts/presentation/post_page.dart' show PostPage;
 
-import 'core/presentation/main_layout.dart';
-import 'core/presentation/main_page.dart';
+import 'core/presentation/main_layout.dart' show MainLayout;
+import 'core/presentation/main_page.dart' show MainPage;
 
 final ValueNotifier<RoutingConfig> myRoutingConfig =
     ValueNotifier<RoutingConfig>(loggedOutRoutingConfig);
@@ -16,12 +15,12 @@ final RoutingConfig loggedInRoutingConfig = RoutingConfig(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
-      builder: (_, __) => MainPage(),
+      builder: (_, __) => const MainPage(),
     ),
     GoRoute(
       path: '/posts/create',
       builder: (_, GoRouterState state) {
-        return CreatePostPage();},
+        return const CreatePostPage();},
     ),
     GoRoute(
       path: '/posts/:postId',
@@ -35,7 +34,7 @@ final RoutingConfig loggedOutRoutingConfig = RoutingConfig(
   routes: <RouteBase>[
     GoRoute(
       path: '/',
-      builder: (_, __) => MainLayout(
+      builder: (_, __) => const MainLayout(
         child: EmailAuthBody(),
       ),
     ),

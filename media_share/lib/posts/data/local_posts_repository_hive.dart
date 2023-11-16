@@ -69,11 +69,11 @@ class LocalPostsRepositoryHive {
       {required List<Post> newPosts, required List<Post> oldPosts}) {
     List<Post> deletedPosts = [];
     List<String> newPostIds = newPosts.map((post) => post.postId).toList();
-    oldPosts.forEach((oldPost) {
+    for (Post oldPost in oldPosts) {
       if (!newPostIds.contains(oldPost.postId)) {
         deletedPosts.add(oldPost);
       }
-    });
+    }
     return deletedPosts;
   }
 
@@ -108,16 +108,16 @@ class LocalPostsRepositoryHive {
     List<Post> oldPosts = getPosts();
     List<Post> deletedPosts = getDeletedPosts(
         newPosts: newPosts, oldPosts: oldPosts);
-    deletedPosts.forEach((post) {
+    for (Post post in deletedPosts) {
       onDeletePost(post);
-    });
+    }
 
     Map<String, Map<String, dynamic>> newPostsJson = {};
 
 
-    newPosts.forEach((post) {
+    for (Post post in newPosts) {
       newPostsJson[post.postId] = post.toJson();
-    });
+    }
     await _postsBox.clear();
     await _postsBox.putAll(newPostsJson);
   }

@@ -1,6 +1,4 @@
-import 'dart:typed_data';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:media_share/posts/presentation/widgets/video_display_from_blob.dart';
@@ -71,15 +69,15 @@ class VideoDisplayFromDatabase extends ConsumerWidget {
                 );
               }
             },
-            error: (_, __) => Container(
-              height: 600,
+            error: (_, __) => SizedBox(
+              height: size.height * 0.7,
               child: Center(
                 child: Text(_.toString()),
               )
             ),
-            loading: () => Container(
-              height: size.height * 0.6,
-              child: Center(
+            loading: () => SizedBox(
+              height: size.height * 0.7,
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),

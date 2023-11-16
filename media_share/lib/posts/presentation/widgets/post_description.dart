@@ -1,9 +1,7 @@
 import 'package:auth_feature/auth_feature.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import '../../application/state.dart';
 import '../../domain/models/post.dart';
 
 class PostDescription extends HookConsumerWidget {
@@ -39,13 +37,13 @@ class PostDescription extends HookConsumerWidget {
                   await onEdit(post.postId,descriptionController.text);
                   inEditMode.value = false;
                 },
-                icon: Icon(Icons.save),
+                icon: const Icon(Icons.save),
               ),
               IconButton(
                 onPressed: () {
                   inEditMode.value = false;
                 },
-                icon: Icon(Icons.cancel),
+                icon: const Icon(Icons.cancel),
               ),
             ]),
         )
@@ -55,14 +53,14 @@ class PostDescription extends HookConsumerWidget {
                 Expanded(
                   child: Container(
                       padding: const EdgeInsets.all(8),
-                      child: Text('description: ' + post.description,softWrap: true,)),
+                      child: Text('description: ${post.description}',softWrap: true,)),
                 ),
                 isUserPost
                     ? IconButton(
                         onPressed: () {
                           inEditMode.value = true;
                         },
-                        icon: Icon(Icons.edit))
+                        icon: const Icon(Icons.edit))
                     : const SizedBox(),
               ],
             ),

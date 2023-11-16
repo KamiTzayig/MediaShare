@@ -10,7 +10,7 @@ part 'theme_notifier.g.dart';
 @riverpod
 class ThemeNotifier extends _$ThemeNotifier {
 
-  LocalMainRepositoryHive _localMainRepositoryHive = LocalMainRepositoryHive.instance;
+  final LocalMainRepositoryHive _localMainRepositoryHive = LocalMainRepositoryHive.instance;
   @override
    ThemeMode build() {
     return _localMainRepositoryHive.getThemeMode();

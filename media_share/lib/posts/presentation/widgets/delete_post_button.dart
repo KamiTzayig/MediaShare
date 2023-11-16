@@ -1,7 +1,6 @@
 import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/application/providers/internet_connection.dart';
 import '../../application/notifiers/posts_notifier.dart';
@@ -24,7 +23,7 @@ class DeletePostButton extends ConsumerWidget {
         onPressed: () async{
           if (internetConnected.hasValue && internetConnected.value == false) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+              const SnackBar(
                 content: Text('No internet connection'),
               ),
             );
@@ -32,7 +31,7 @@ class DeletePostButton extends ConsumerWidget {
           }
           await ref.read(postsNotifierProvider.notifier).deletePost(post.postId);
           context.pop();
-        }, child: Text('delete post',style: TextStyle(color: Colors.red),),),
+        }, child: const Text('delete post',style: TextStyle(color: Colors.red),),),
     );
   }
 }

@@ -18,7 +18,7 @@ class CreatePostButton extends ConsumerWidget {
       onPressed: () {
       if (internetConnected.hasValue && internetConnected.value == false) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text('No internet connection'),
             ),
           );
@@ -26,7 +26,7 @@ class CreatePostButton extends ConsumerWidget {
         }
         context.push('/posts/create');
       },
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
     );
   }
 }
