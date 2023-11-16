@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:media_share/posts/presentation/widgets/video_display.dart';
 import 'dart:io';
-import '../../domain/file_type.dart';
+import '../../domain/models/file_type.dart';
 import 'package:flutter/material.dart';
 
 import 'image_display.dart';
@@ -12,7 +12,8 @@ class MediaDisplayWidget extends StatelessWidget {
   final File? file;
   final MediaType fileType;
 
-  MediaDisplayWidget({required this.fileType, this.file, this.url});
+
+  MediaDisplayWidget({required this.fileType, this.file, this.url, });
 
 
 

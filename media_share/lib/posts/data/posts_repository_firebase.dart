@@ -2,7 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:media_share/posts/domain/file_type.dart';
+import 'package:flutter/foundation.dart';
+import 'package:media_share/posts/domain/models/file_type.dart';
 import 'package:media_share/posts/domain/models/comment.dart';
 
 import 'package:media_share/posts/domain/models/post.dart';
@@ -71,7 +72,9 @@ class PostsRepositoryFirebase implements PostsRepository {
       {required Post post,
       required File mediaFile,
       required MediaType fileType,
-      required Uint8List? thumbnailData}) async {
+      required Uint8List? thumbnailData,
+        Uint8List? mediaData}) async {
+
     uploadStreamController.add(0.0);
 
     final fileId = const Uuid().v4();
@@ -80,17 +83,24 @@ class PostsRepositoryFirebase implements PostsRepository {
         .child(post.userId)
         .child(fileType.pathName)
         .child(fileId);
+
     final thumbnailRef = _storage
         .ref()
         .child(post.userId)
         .child('thumbnails')
         .child("thumb-" + fileId);
 
-    final Uint8List mediaData = await mediaFile.readAsBytes();
+    late Uint8List mediaBytes;
+
+    if(kIsWeb && mediaData != null){
+      mediaBytes = mediaData;
+    }else{
+      mediaBytes =  await mediaFile.readAsBytes();
+  }
 
     try {
       final mediaUploadTask = mediaRef.putData(
-        mediaData,
+        mediaBytes,
       );
 
       late UploadTask thumbnailUploadTask;
@@ -101,7 +111,7 @@ class PostsRepositoryFirebase implements PostsRepository {
         );
       } else {
         thumbnailUploadTask = thumbnailRef.putData(
-          mediaData,
+          mediaBytes,
         );
       }
 
@@ -134,9 +144,9 @@ class PostsRepositoryFirebase implements PostsRepository {
       await _firestore.collection('posts').add(json);
 
       final _localPostsRepositoryHive = LocalPostsRepositoryHive.instance;
-      await _localPostsRepositoryHive.putMedia(mediaUrl, mediaData);
+      await _localPostsRepositoryHive.putMedia(mediaUrl, mediaBytes);
       await _localPostsRepositoryHive.putMedia(
-          thumbnailUrl, thumbnailData ?? mediaData);
+          thumbnailUrl, thumbnailData ?? mediaBytes);
     } catch (e) {
       print(e);
       throw e;

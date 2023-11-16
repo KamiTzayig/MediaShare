@@ -16,10 +16,10 @@ class VideoDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (videoFile != null) {
-      return VideoDisplayFromFile(videoFile: videoFile!);
-    } else if (videoUrl != null) {
+    if (videoUrl != null) {
       return VideoDisplayFromDatabase(videoUrl: videoUrl!);
+    } else if (videoFile != null) {
+      return VideoDisplayFromFile(videoFile: videoFile!);
     } else {
       return Center(
         child: Text('Unsupported file type'),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:media_share/posts/application/providers/filtered_posts_stream.dart';
 import 'package:media_share/posts/presentation/widgets/post_grid_tile.dart';
 import '../../application/state.dart';
@@ -16,24 +17,37 @@ class PostsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<Post>> posts = ref.watch(filteredPostsStreamProvider);
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return posts.when(
-        data: (List<Post> posts) {
-          return GridView.builder(
-            shrinkWrap: true,
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemCount: posts.length,
-            itemBuilder: (context, index) {
-              // return GridTile(child: Container(color: Colors.red),);
-              return PostGirdTile(post: posts[index]);
-            },
-          );
+        data: (List<Post> posts)
+    {
+      return MasonryGridView.count(
+        shrinkWrap: true,
+        crossAxisCount: (size.width ~/ 350) + 1,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        itemCount: posts.length,
+        itemBuilder: (context, index) {
+          return PostGirdTile(post: posts[index]);
         },
-        error: (_, StackTrace stackTrace) {
-          print(_);
-          print(stackTrace);
-        return  Center(child: Text("error"),);
-        },
-        loading: () => const Center( child: CircularProgressIndicator(),),);
+      );
+    },
+    error: (_, StackTrace stackTrace) {
+    print(_);
+    print(stackTrace);
+    return Center(child: Text("error"),);
+    },
+    loading: () =>MasonryGridView.count(
+    shrinkWrap: true,
+    crossAxisCount: (size.width~/350) +1,
+    mainAxisSpacing: 4,
+    crossAxisSpacing: 4,
+    itemCount: 30,
+    itemBuilder: (context, index) {
+    return Container(color: Colors.grey, height: 300, child: Center( child: CircularProgressIndicator(),));      },
+    )
+    );
   }
 }

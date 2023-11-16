@@ -1,5 +1,5 @@
 
-import 'package:media_share/posts/domain/file_type.dart';
+import 'package:media_share/posts/domain/models/file_type.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'type_filter_notifier.g.dart';

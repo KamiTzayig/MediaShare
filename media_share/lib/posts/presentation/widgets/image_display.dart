@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../application/providers/media_local_cache_provider.dart';
@@ -17,15 +18,21 @@ class ImageDisplay extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Size size = MediaQuery.of(context).size;
-    bool isFile = imageFile != null;
+    bool isFile = imageUrl == null;
+
    late AsyncValue<Uint8List?> imageData;
-    if (!isFile && imageUrl != '') {
+    if (!isFile && imageUrl != '' && !kIsWeb ) {
       imageData = ref.watch(mediaLocalCacheProvider(imageUrl!));
     }
 
     return isFile
         ? _buildImageFile(imageFile!, size)
-        : imageUrl != ''
+        :  kIsWeb?
+        _buildImageWeb(imageUrl!, size)
+
+        :
+
+    imageUrl != ''
             ? imageData.when(
                 data: (data) => _buildImageMemory(data, size),
                 loading: () => Container(
@@ -96,4 +103,28 @@ class ImageDisplay extends ConsumerWidget {
             },
           );
   }
-}
+
+  Widget _buildImageWeb(String blobUrl, Size size) {
+    return Image.network(
+      blobUrl,
+      frameBuilder: (BuildContext context, Widget child, int? frame,
+          bool wasSynchronouslyLoaded) {
+        return frame == null
+            ? Container(
+          height: size.height * 0.7,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        )
+            : SizedBox(
+          height: size.height * 0.7,
+          child: FittedBox(
+            fit: BoxFit.cover,
+            child: child,
+          ),
+        );
+      },
+    );
+  }
+
+  }
