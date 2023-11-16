@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1030137661647",
+    "project_id": "mediashare-cd7fc",
+    "storage_bucket": "mediashare-cd7fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030137661647:android:ab2ee0e5cc50da31bd0fba",
+        "android_client_info": {
+          "package_name": "com.example.media_share"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1cOS17xqZyXUllTQbm42te1K98S51kjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
