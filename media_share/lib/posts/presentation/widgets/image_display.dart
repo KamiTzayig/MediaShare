@@ -66,7 +66,7 @@ class ImageDisplay extends ConsumerWidget {
             : SizedBox(
                 height: size.height * 0.7,
                 child: FittedBox(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   child: child,
                 ),
               );
@@ -75,36 +75,38 @@ class ImageDisplay extends ConsumerWidget {
   }
 
   Widget _buildImageMemory(Uint8List? imageData, Size size) {
+print('kami');
     return imageData == null
         ? Container(
             height: size.height * 0.7,
             color: Colors.grey[300],
           )
         : Image.memory(
-            imageData,
-            frameBuilder: (BuildContext context, Widget child, int? frame,
-                bool wasSynchronouslyLoaded) {
-              return frame == null
-                  ? SizedBox(
-                      height: size.height * 0.7,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : SizedBox(
-                      height: size.height * 0.7,
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: child,
-                      ),
-                    );
-            },
-          );
+                imageData,
+        frameBuilder: (BuildContext context, Widget child, int? frame,
+                    bool wasSynchronouslyLoaded) {
+                  return frame == null
+                      ? SizedBox(
+                          height: size.height * 0.7,
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        )
+                      : SizedBox(
+                          height: size.height * 0.7,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: child,
+                          ),
+                        );
+                },
+              );
   }
 
   Widget _buildImageWeb(String blobUrl, Size size) {
     return Image.network(
       blobUrl,
+      fit: BoxFit.contain,
       frameBuilder: (BuildContext context, Widget child, int? frame,
           bool wasSynchronouslyLoaded) {
         return frame == null
@@ -117,7 +119,7 @@ class ImageDisplay extends ConsumerWidget {
             : SizedBox(
           height: size.height * 0.7,
           child: FittedBox(
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
             child: child,
           ),
         );
