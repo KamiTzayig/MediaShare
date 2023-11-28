@@ -9,7 +9,10 @@ import 'package:media_share/posts/application/providers/media_local_cache_provid
 import '../../domain/models/post.dart';
 
 class PostGirdTile extends ConsumerWidget {
-  const PostGirdTile({required this.post, super.key});
+  const PostGirdTile({
+    required this.post,
+    required Key key,
+  }) : super(key: key);
 
   final Post post;
 

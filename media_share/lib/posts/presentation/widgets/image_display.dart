@@ -75,7 +75,6 @@ class ImageDisplay extends ConsumerWidget {
   }
 
   Widget _buildImageMemory(Uint8List? imageData, Size size) {
-print('kami');
     return imageData == null
         ? Container(
             height: size.height * 0.7,

@@ -1,5 +1,5 @@
-import 'package:auth_feature/auth_feature.dart' show AuthFeature, AuthUser;
-import 'package:firebase_auth_feature_repository/firebase_auth_feature_repository.dart'
+import 'package:media_share/auth_feature_package/auth_feature/lib/auth_feature.dart' show AuthFeature, AuthUser;
+import 'package:media_share/auth_feature_package/firebase_auth_feature_repository/lib/firebase_auth_feature_repository.dart'
     show FirebaseAuthFeatureRepository;
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart' show Hive, HiveX;

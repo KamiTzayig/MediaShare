@@ -1,6 +1,7 @@
-import 'package:auth_feature/auth_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:media_share/core/presentation/widgets/theme_list_tile.dart';
+
+import '../../../auth_feature_package/auth_feature/lib/auth_feature.dart';
 
 
 class MainDrawer extends StatelessWidget {
@@ -11,14 +12,14 @@ class MainDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          DrawerHeader(
+          const DrawerHeader(
             child: Text('Media Share'),
           ),
-        ThemeListTile(),
+        const ThemeListTile(),
 
           ListTile(
-            title: Text('Sign Out'),
-            leading: Icon(Icons.logout),
+            title: const Text('Sign Out'),
+            leading: const Icon(Icons.logout),
             onTap: () {
               AuthFeature.instance.repository.signOut();
             },

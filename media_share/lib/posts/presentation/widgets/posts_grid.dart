@@ -17,36 +17,41 @@ class PostsGrid extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<Post>> posts = ref.watch(filteredPostsStreamProvider);
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return posts.when(
-        data: (List<Post> posts)
-    {
-      return MasonryGridView.count(
-        shrinkWrap: true,
-        crossAxisCount: (size.width ~/ 350) + 1,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        itemCount: posts.length,
-        itemBuilder: (context, index) {
-          return PostGirdTile(post: posts[index]);
-        },
-      );
-    },
-    error: (_, StackTrace stackTrace) {
+        data: (List<Post> posts) {
 
-    return const Center(child: Text("error"),);
-    },
-    loading: () =>MasonryGridView.count(
-    shrinkWrap: true,
-    crossAxisCount: (size.width~/350) +1,
-    mainAxisSpacing: 4,
-    crossAxisSpacing: 4,
-    itemCount: 30,
-    itemBuilder: (context, index) {
-    return Container(color: Colors.grey, height: 300, child: const Center( child: CircularProgressIndicator(),));      },
-    )
-    );
+          return MasonryGridView.count(
+            shrinkWrap: true,
+            crossAxisCount: (size.width ~/ 350) + 1,
+            mainAxisSpacing: 4,
+            crossAxisSpacing: 4,
+            itemCount: posts.length,
+            itemBuilder: (context, index) {
+              return PostGirdTile(
+                  key: ValueKey<int>(posts[index].hashCode), post: posts[index]);
+            },
+          );
+        },
+        error: (_, StackTrace stackTrace) {
+          return const Center(
+            child: Text("error"),
+          );
+        },
+        loading: () => MasonryGridView.count(
+              shrinkWrap: true,
+              crossAxisCount: (size.width ~/ 350) + 1,
+              mainAxisSpacing: 4,
+              crossAxisSpacing: 4,
+              itemCount: 30,
+              itemBuilder: (context, index) {
+                return Container(
+                    color: Colors.grey,
+                    height: 300,
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ));
+              },
+            ));
   }
 }

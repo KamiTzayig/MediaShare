@@ -1,4 +1,4 @@
-import 'package:auth_feature/auth_feature.dart' show EmailAuthBody;
+import 'package:media_share/auth_feature_package/auth_feature/lib/auth_feature.dart' show EmailAuthBody;
 import 'package:flutter/foundation.dart' show  ValueNotifier;
 import 'package:go_router/go_router.dart';
 import 'package:media_share/posts/presentation/create_post_page.dart' show CreatePostPage;

@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'internet_connection.dart';
+part of 'phone_auth_state_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$internetConnectionHash() =>
-    r'c71d32c6dff75379dbe2736e511424da1a864a48';
+String _$phoneAuthStateNotifierHash() =>
+    r'23ac9413c1680b2fad01b421cacb082fcae0edc5';
 
-/// See also [InternetConnection].
-@ProviderFor(InternetConnection)
-final internetConnectionProvider =
-    AutoDisposeStreamNotifierProvider<InternetConnection, bool>.internal(
-  InternetConnection.new,
-  name: r'internetConnectionProvider',
+/// See also [PhoneAuthStateNotifier].
+@ProviderFor(PhoneAuthStateNotifier)
+final phoneAuthStateNotifierProvider = AutoDisposeNotifierProvider<
+    PhoneAuthStateNotifier, PhoneAuthState>.internal(
+  PhoneAuthStateNotifier.new,
+  name: r'phoneAuthStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$internetConnectionHash,
+      : _$phoneAuthStateNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$InternetConnection = AutoDisposeStreamNotifier<bool>;
+typedef _$PhoneAuthStateNotifier = AutoDisposeNotifier<PhoneAuthState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

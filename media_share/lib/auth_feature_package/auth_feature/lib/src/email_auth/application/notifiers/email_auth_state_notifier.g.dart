@@ -1,27 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'internet_connection.dart';
+part of 'email_auth_state_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$internetConnectionHash() =>
-    r'c71d32c6dff75379dbe2736e511424da1a864a48';
+String _$emailAuthStateNotifierHash() =>
+    r'62a5df6510663279deb556a941e49f1bf766fa43';
 
-/// See also [InternetConnection].
-@ProviderFor(InternetConnection)
-final internetConnectionProvider =
-    AutoDisposeStreamNotifierProvider<InternetConnection, bool>.internal(
-  InternetConnection.new,
-  name: r'internetConnectionProvider',
+/// See also [EmailAuthStateNotifier].
+@ProviderFor(EmailAuthStateNotifier)
+final emailAuthStateNotifierProvider = AutoDisposeNotifierProvider<
+    EmailAuthStateNotifier, EmailAuthState>.internal(
+  EmailAuthStateNotifier.new,
+  name: r'emailAuthStateNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$internetConnectionHash,
+      : _$emailAuthStateNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$InternetConnection = AutoDisposeStreamNotifier<bool>;
+typedef _$EmailAuthStateNotifier = AutoDisposeNotifier<EmailAuthState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

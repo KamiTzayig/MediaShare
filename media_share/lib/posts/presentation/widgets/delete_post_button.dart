@@ -1,4 +1,4 @@
-import 'package:auth_feature/auth_feature.dart';
+import 'package:media_share/auth_feature_package/auth_feature/lib/auth_feature.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,4 +1,4 @@
-import 'package:auth_feature/auth_feature.dart' show AuthFeature;
+import 'package:media_share/auth_feature_package/auth_feature/lib/auth_feature.dart' show AuthFeature;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
